@@ -81,7 +81,7 @@ async function deleteAdventure(){
 }
 function catalogCard(row){
  const source=row.source?`<a class="text-button" href="${esc(row.source)}" target="_blank" rel="noopener">Source JaFL →</a>`:`<p class="hint">${esc(row.credit||'Version française incluse')}</p>`;
- return `<article class="record"><button class="map-thumbnail" data-catalog-map="${esc(row.id)}" aria-label="Ouvrir ${esc(row.title)}"><img src="${esc(row.image)}" alt="Carte de ${esc(row.title)}" loading="lazy"><span>⤢ Agrandir</span></button><span class="eyebrow">${row.book?'LIVRE '+row.book:'CARTE DU MONDE'} · ${row.language==='fr'?'FRANÇAIS':'ANGLAIS'}</span><h3>${esc(row.title)}</h3>${source}</article>`;
+ return `<article class="record"><button class="map-thumbnail" data-catalog-map="${esc(row.id)}" aria-label="Ouvrir ${esc(row.title)}"><img src="${esc(row.image)}" alt="Carte de ${esc(row.title)}" loading="lazy"><span>⤢ Agrandir</span></button><span class="eyebrow">${row.book?'LIVRE '+row.book:'CARTE DU MONDE'} · ${row.language==='fr'?'FRANÇAIS':'ANGLAIS'}</span><h3>${esc(row.title)}</h3>${source}${row.note?`<p class="hint">${esc(row.note)}</p>`:''}</article>`;
 }
 function catalogView(){
  const french=mapCatalog.filter(row=>row.language==='fr'),english=mapCatalog.filter(row=>row.language!=='fr');

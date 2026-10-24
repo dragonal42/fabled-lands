@@ -27,9 +27,10 @@
     "id": "book-3",
     "book": 3,
     "title": "L’océan Violet",
-    "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book3/Violet%20Ocean.JPG",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book3/Violet%20Ocean.JPG",
-    "language": "en"
+    "image": "assets/maps/ocean-violet-fr.jpg",
+    "language": "fr",
+    "credit": "Carte française du tome 3 fournie pour ce carnet",
+    "note": "Image de 214 × 280 pixels : les petits libellés restent difficiles à lire en zoom."
   },
   {
     "id": "book-4",
