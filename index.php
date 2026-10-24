@@ -18,12 +18,12 @@ header('X-Content-Type-Options: nosniff');
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=20261024-lecture">
   <link rel="stylesheet" href="assets/vendor/sweetalert2.min.css">
-  <link rel="stylesheet" href="assets/controls.css">
+  <link rel="stylesheet" href="assets/controls.css?v=20261024-lecture">
   <script src="assets/vendor/sweetalert2.min.js" defer></script>
   <script src="assets/game-data.js" defer></script>
-  <script src="assets/adventure.js" defer></script>
+  <script src="assets/adventure.js?v=20261024-lecture" defer></script>
   <script src="assets/rules.js" defer></script>
   <script src="assets/app.js" defer></script>
 </head>

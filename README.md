@@ -5,7 +5,7 @@ Compagnon de lecture en français pour les livres-jeux Fabled Lands, réalisé e
 ## Fonctionnalités
 
 - Profils par prénom : liste commune, sélection sans mot de passe, reprise automatique du dernier profil avec `localStorage`.
-- Création de personnage : choix de la profession et du tome de départ, fiche conforme au tutoriel français pour le tome 1 et aux données JaFL pour les autres tomes, nom proposé au hasard, régénération et validation définitive. Le nom, la profession et les valeurs initiales sont ensuite verrouillés côté serveur.
+- Création de personnage : choix de la profession et du tome de départ, fiche conforme au tutoriel français pour le tome 1 et aux données JaFL pour les autres tomes, nom proposé au hasard, proposition d’un autre nom et validation définitive. Le nom, la profession et les valeurs initiales sont ensuite verrouillés côté serveur.
 - Saisie numérique : boutons − / + partout, raccourcis −10 / +10 pour les montants et cargaisons, sélection de la valeur au toucher et retour à la dernière valeur valide si une saisie est vide ou hors limites.
 - Personnage : profession, niveau, endurance, six compétences (initiale, actuelle, bonus/malus et raison), défense calculée sans les bonus de Combat, titres et honneurs.
 - 12 emplacements transportés et possessions stockées par lieu, livre et section.
@@ -109,3 +109,9 @@ L’application a été vérifiée avec PHP 8.4 / SQLite et Chromium. Le serveur
 SweetAlert2 11.26.25 est fourni sous licence MIT dans `assets/vendor/`, avec sa licence. La distribution npm a été vérifiée avec son empreinte d’intégrité SHA-512. Aucun CDN n’est utilisé pour son fonctionnement.
 
 Les cartes françaises des tomes 3 et 4 ont été remplacées par les nouvelles images fournies : 977 × 1280 pixels pour le tome 3 et 946 × 1280 pixels pour le tome 4. Les fichiers sont conservés sans recompression ; les anciennes mentions de faible résolution ont été retirées.
+
+### Lecture sur iPhone
+
+Les textes courants et les champs sont affichés en 16 à 17 px, avec des libellés renforcés et un contraste plus marqué. Le zoom du navigateur reste disponible. Les fenêtres de confirmation suivent les mêmes tailles de lecture.
+
+À la création, « Proposer un autre nom » conserve les caractéristiques : le PDF du tome 1 fixe les compétences par profession (page 1), puis le niveau, l’endurance et la bourse de départ (page 2). Aucun tirage aléatoire de ces valeurs n’y est prévu.
