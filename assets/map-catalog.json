@@ -11,7 +11,7 @@
     "id": "book-1",
     "book": 1,
     "title": "Sokara",
-    "image": "assets/maps/sokara-fr.jpg",
+    "image": "assets/maps/sokara-fr.jpg?v=20261024-hd",
     "language": "fr",
     "credit": "Carte française du tome 1 fournie pour ce carnet"
   },
@@ -19,7 +19,7 @@
     "id": "book-2",
     "book": 2,
     "title": "Golnir",
-    "image": "assets/maps/golnir-fr.jpg",
+    "image": "assets/maps/golnir-fr.jpg?v=20261024-hd",
     "language": "fr",
     "credit": "Carte française du tome 2 fournie pour ce carnet"
   },
