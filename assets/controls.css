@@ -68,3 +68,13 @@ h1,h2,h3{font-weight:650}
  .rule-help summary{gap:8px;flex-wrap:nowrap}
  .swal2-html-container{font-size:17px!important}
 }
+
+/* The map handles pinch gestures independently of the document viewport. */
+html{touch-action:pan-x pan-y}
+html.map-open,html.map-open body{overflow:hidden;overscroll-behavior:none}
+.map-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+.map-tools output{min-width:65px;text-align:center;font-weight:600}
+.map-tools button{min-width:48px}
+.map-viewer{height:60vh;height:60dvh;max-height:60dvh;touch-action:none;overscroll-behavior:contain;background:#eeeee2;border-radius:6px;cursor:grab;user-select:none;-webkit-user-select:none}
+.map-viewer:active{cursor:grabbing}
+.map-viewer img{max-width:none;touch-action:none;pointer-events:none;margin:0;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}

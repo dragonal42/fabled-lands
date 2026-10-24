@@ -8,7 +8,7 @@ header('X-Content-Type-Options: nosniff');
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#173b38">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -22,12 +22,13 @@ header('X-Content-Type-Options: nosniff');
   <link rel="manifest" href="manifest.webmanifest?v=20261024">
   <link rel="stylesheet" href="assets/style.css?v=20261024-lecture">
   <link rel="stylesheet" href="assets/vendor/sweetalert2.min.css">
-  <link rel="stylesheet" href="assets/controls.css?v=20261024-lecture">
+  <link rel="stylesheet" href="assets/controls.css?v=20261024-cartes">
   <script src="assets/vendor/sweetalert2.min.js" defer></script>
   <script src="assets/game-data.js" defer></script>
-  <script src="assets/adventure.js?v=20261024-lecture" defer></script>
-  <script src="assets/rules.js" defer></script>
-  <script src="assets/app.js?v=20261024-install" defer></script>
+  <script src="assets/adventure.js?v=20261024-cartes" defer></script>
+  <script src="assets/rules.js?v=20261024-cartes" defer></script>
+  <script src="assets/map-viewer.js?v=20261024-cartes" defer></script>
+  <script src="assets/app.js?v=20261024-cartes" defer></script>
   <script src="assets/install.js" defer></script>
 </head>
 <body>

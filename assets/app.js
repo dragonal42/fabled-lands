@@ -264,7 +264,7 @@ document.addEventListener('click',async event=>{
  if(el.dataset.adjust){const [key,field]=el.dataset.adjust.split('.');state[key][field]=Math.max(0,Math.min(state.hero.maxStamina,state[key][field]+Number(el.dataset.delta)));changed();render();return;}
  if(el.dataset.withdraw)return withdrawDialog(el.dataset.withdraw);
  if(el.dataset.attack){const [id,side]=el.dataset.attack.split(':');return attack(id,side);}
- if(el.dataset.map||el.dataset.catalogMap){const row=el.dataset.catalogMap?mapCatalog.find(r=>r.id===el.dataset.catalogMap):state.maps.find(r=>r.id===el.dataset.map);dialog(esc(row.title),`<p class="hint">Utilisez le pincement à deux doigts ou faites défiler l’image.</p><div class="map-viewer"><img src="${esc(row.image)}" alt="${esc(row.title)}"></div>`);$('#modal').classList.add('map-dialog');}
+ if(el.dataset.map||el.dataset.catalogMap){const row=el.dataset.catalogMap?mapCatalog.find(r=>r.id===el.dataset.catalogMap):state.maps.find(r=>r.id===el.dataset.map);openAdventureMap(row);}
  }catch(e){toast(e.message);}
 });
 $('#modal').addEventListener('close',()=>{$('#modal').classList.remove('map-dialog');modalHandler=null;});

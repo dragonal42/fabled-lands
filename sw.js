@@ -1,12 +1,12 @@
 'use strict';
 // Cache only public application files. Profiles and writes always use the API.
 const CACHE_PREFIX = 'terres-fabuleuses-shell-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + '20261024-v1';
+const CACHE = CACHE_PREFIX + '20261024-cartes-v2';
 const BASE = new URL('./', self.location.href);
 const SHELL = [
   './', 'index.php', 'manifest.webmanifest?v=20261024',
-  'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261024-lecture',
-  'assets/app.js?v=20261024-install', 'assets/adventure.js?v=20261024-lecture', 'assets/rules.js',
+  'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261024-cartes',
+  'assets/app.js?v=20261024-cartes', 'assets/adventure.js?v=20261024-cartes', 'assets/rules.js?v=20261024-cartes', 'assets/map-viewer.js?v=20261024-cartes',
   'assets/game-data.js', 'assets/install.js', 'assets/creation-rules.json',
   'assets/map-catalog.json', 'assets/icon.svg', 'assets/voyage.svg',
   'assets/vendor/sweetalert2.min.js', 'assets/vendor/sweetalert2.min.css',
