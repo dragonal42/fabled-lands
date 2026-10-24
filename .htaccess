@@ -1,0 +1,14 @@
+Options -Indexes
+DirectoryIndex index.php
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule (^|/)\. - [F,L]
+  RewriteRule ^tests(/|$) - [F,L]
+</IfModule>
+<FilesMatch "(?i)(\.(sqlite|sqlite3|db)(-wal|-shm|-journal)?$|^\.|^(README|LICENSE))">
+  Require all denied
+</FilesMatch>
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "same-origin"
+</IfModule>
