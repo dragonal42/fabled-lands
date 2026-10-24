@@ -20,19 +20,14 @@
           "armour": 1,
           "inventory": [
             {
-              "name": "Armure de cuir",
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Gilet en cuir",
               "quantity": 1,
               "notes": "Défense +1"
-            },
-            {
-              "name": "Masse",
-              "quantity": 1,
-              "notes": ""
-            },
-            {
-              "name": "Carte",
-              "quantity": 1,
-              "notes": ""
             }
           ]
         },
@@ -48,19 +43,14 @@
           "armour": 1,
           "inventory": [
             {
-              "name": "Armure de cuir",
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Gilet en cuir",
               "quantity": 1,
               "notes": "Défense +1"
-            },
-            {
-              "name": "Bâton",
-              "quantity": 1,
-              "notes": ""
-            },
-            {
-              "name": "Carte",
-              "quantity": 1,
-              "notes": ""
             }
           ]
         },
@@ -76,19 +66,14 @@
           "armour": 1,
           "inventory": [
             {
-              "name": "Armure de cuir",
-              "quantity": 1,
-              "notes": "Défense +1"
-            },
-            {
               "name": "Épée",
               "quantity": 1,
               "notes": ""
             },
             {
-              "name": "Carte",
+              "name": "Gilet en cuir",
               "quantity": 1,
-              "notes": ""
+              "notes": "Défense +1"
             }
           ]
         },
@@ -104,19 +89,14 @@
           "armour": 1,
           "inventory": [
             {
-              "name": "Armure de cuir",
-              "quantity": 1,
-              "notes": "Défense +1"
-            },
-            {
               "name": "Épée",
               "quantity": 1,
               "notes": ""
             },
             {
-              "name": "Carte",
+              "name": "Gilet en cuir",
               "quantity": 1,
-              "notes": ""
+              "notes": "Défense +1"
             }
           ]
         },
@@ -132,23 +112,18 @@
           "armour": 1,
           "inventory": [
             {
-              "name": "Armure de cuir",
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Gilet en cuir",
               "quantity": 1,
               "notes": "Défense +1"
-            },
-            {
-              "name": "Hache de guerre",
-              "quantity": 1,
-              "notes": ""
-            },
-            {
-              "name": "Carte",
-              "quantity": 1,
-              "notes": ""
             }
           ]
         },
-        "Explorateur": {
+        "Voyageur": {
           "skills": [
             2,
             5,
@@ -160,23 +135,20 @@
           "armour": 1,
           "inventory": [
             {
-              "name": "Armure de cuir",
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Gilet en cuir",
               "quantity": 1,
               "notes": "Défense +1"
-            },
-            {
-              "name": "Lance",
-              "quantity": 1,
-              "notes": ""
-            },
-            {
-              "name": "Carte",
-              "quantity": 1,
-              "notes": ""
             }
           ]
         }
-      }
+      },
+      "ruleset": "fr-tome1-v1",
+      "sourceLabel": "Tutoriel français du tome 1, PDF fourni, pages 1 à 3"
     },
     "2": {
       "rank": 2,
@@ -323,7 +295,7 @@
             }
           ]
         },
-        "Explorateur": {
+        "Voyageur": {
           "skills": [
             2,
             5,
@@ -351,7 +323,8 @@
             }
           ]
         }
-      }
+      },
+      "ruleset": "jafl-voyageur-v1"
     },
     "3": {
       "rank": 3,
@@ -498,7 +471,7 @@
             }
           ]
         },
-        "Explorateur": {
+        "Voyageur": {
           "skills": [
             3,
             6,
@@ -526,7 +499,8 @@
             }
           ]
         }
-      }
+      },
+      "ruleset": "jafl-voyageur-v1"
     },
     "4": {
       "rank": 4,
@@ -673,7 +647,7 @@
             }
           ]
         },
-        "Explorateur": {
+        "Voyageur": {
           "skills": [
             3,
             6,
@@ -701,7 +675,8 @@
             }
           ]
         }
-      }
+      },
+      "ruleset": "jafl-voyageur-v1"
     },
     "5": {
       "rank": 5,
@@ -823,7 +798,7 @@
             }
           ]
         },
-        "Explorateur": {
+        "Voyageur": {
           "skills": [
             4,
             7,
@@ -846,7 +821,8 @@
             }
           ]
         }
-      }
+      },
+      "ruleset": "jafl-voyageur-v1"
     },
     "6": {
       "rank": 6,
@@ -943,7 +919,7 @@
             }
           ]
         },
-        "Explorateur": {
+        "Voyageur": {
           "skills": [
             4,
             7,
@@ -961,7 +937,13 @@
             }
           ]
         }
-      }
+      },
+      "ruleset": "jafl-voyageur-v1"
     }
+  },
+  "frenchTutorial": {
+    "title": "Explorer le monde de Fabled Lands — Le Royaume déchiré",
+    "pages": 6,
+    "sha256": "48c3b93804440dd26969c6e67a959e848ef9ddbf07efff7c8ed81a6e75a0a960"
   }
 }

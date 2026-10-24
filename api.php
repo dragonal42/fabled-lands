@@ -61,6 +61,7 @@ function validateState(mixed $state): void {
             if (!$valid) reply(['error' => 'Valeur invalide : ' . $list . '/' . $key], 422);
         }
         if ($list === 'deposits' && $row['fee'] > 100) reply(['error' => 'Les frais ne peuvent pas dépasser 100 %.'], 422);
+        if ($list === 'inventory' && $row['quantity'] < 1) reply(['error'=>'Chaque objet doit avoir une quantité d’au moins 1.'], 422);
         if ($list === 'ships' && (!in_array($row['crew'], ['mauvais','moyen','bon','hors pair'], true) || $row['load'] > $row['capacity'])) reply(['error' => 'Manifeste de navire invalide.'], 422);
         if ($list === 'maps' && !preg_match('~^data:image/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$~D', $row['image'])) reply(['error' => 'Image de carte invalide.'], 422);
     }
@@ -119,7 +120,12 @@ try {
         $previousQuery->execute([$body['id'] ?? '']);
         $previous = $previousQuery->fetch(PDO::FETCH_ASSOC);
         if (!$previous || (int)$previous['version'] !== $body['version']) reply(['error'=>'Ce profil a changé sur un autre appareil. Choisissez la sauvegarde à conserver.'], 409);
-        validateAdventure($body['state'], $previous['state'] === null ? null : json_decode($previous['state'], true, 64, JSON_THROW_ON_ERROR));
+        $previousState = $previous['state'] === null ? null : json_decode($previous['state'], true, 64, JSON_THROW_ON_ERROR);
+        validateAdventure($body['state'], $previousState);
+        $carried = array_sum(array_column($body['state']['inventory'], 'quantity'));
+        $previousCarried = $previousState ? array_sum(array_column($previousState['inventory'], 'quantity')) : 0;
+        // Les anciens carnets surchargés restent utilisables, sans pouvoir aggraver la surcharge.
+        if ($carried > max(12, $previousCarried)) reply(['error'=>'Le sac est limité à 12 objets, quantités comprises.'], 422);
         $query = $db->prepare('UPDATE profiles SET state = ?, version = version + 1, updated_at = ? WHERE id = ? AND version = ?');
         $query->execute([json_encode($body['state'], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), $now, $body['id'] ?? '', $body['version']]);
         if ($query->rowCount() !== 1) reply(['error' => 'Ce profil a changé sur un autre appareil. Choisissez la sauvegarde à conserver.'], 409);

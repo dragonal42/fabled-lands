@@ -29,10 +29,13 @@ function validateAdventure(array $state, ?array $previous): void {
         reply(['error'=>'Fiche de création invalide.'], 422);
     }
     if ($a['status'] === 'locked') {
-        $rules = json_decode(file_get_contents(dirname(__DIR__).'/assets/creation-rules.json'), true, 64, JSON_THROW_ON_ERROR);
+        // Conserver les fiches déjà verrouillées avant la correction de l’édition française.
+        $rulesFile = ($c['ruleset'] ?? '') === 'jafl-original' ? 'creation-rules-jafl.json' : 'creation-rules.json';
+        $rules = json_decode(file_get_contents(dirname(__DIR__).'/assets/'.$rulesFile), true, 64, JSON_THROW_ON_ERROR);
         $book = $rules['books'][(string)($c['book'] ?? '')] ?? null;
         $profession = $book['professions'][$c['profession']] ?? null;
-        if (($c['ruleset'] ?? '') !== $rules['id'] || !$profession || !is_int($c['book']) || trim($c['name']) === '' || strlen($c['name']) > 320) {
+        $expectedRuleset = $book['ruleset'] ?? $rules['id'];
+        if (($c['ruleset'] ?? '') !== $expectedRuleset || !$profession || !is_int($c['book']) || trim($c['name']) === '' || strlen($c['name']) > 320) {
             reply(['error'=>'Profession, nom ou livre de départ invalide.'], 422);
         }
         $expected = ['rank'=>$book['rank'], 'stamina'=>$book['stamina'], 'armour'=>$profession['armour'], 'gold'=>$book['gold'], 'skills'=>$profession['skills'], 'inventory'=>$profession['inventory']];

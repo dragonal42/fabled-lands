@@ -24,6 +24,7 @@ header('X-Content-Type-Options: nosniff');
   <script src="assets/vendor/sweetalert2.min.js" defer></script>
   <script src="assets/game-data.js" defer></script>
   <script src="assets/adventure.js" defer></script>
+  <script src="assets/rules.js" defer></script>
   <script src="assets/app.js" defer></script>
 </head>
 <body>

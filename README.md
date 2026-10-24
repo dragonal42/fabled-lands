@@ -5,17 +5,19 @@ Compagnon de lecture en français pour les livres-jeux Fabled Lands, réalisé e
 ## Fonctionnalités
 
 - Profils par prénom : liste commune, sélection sans mot de passe, reprise automatique du dernier profil avec `localStorage`.
-- Création de personnage : choix de la profession et du tome de départ, fiche conforme aux données JaFL, nom proposé au hasard, régénération et validation définitive. Le nom, la profession et les valeurs initiales sont ensuite verrouillés côté serveur.
+- Création de personnage : choix de la profession et du tome de départ, fiche conforme au tutoriel français pour le tome 1 et aux données JaFL pour les autres tomes, nom proposé au hasard, régénération et validation définitive. Le nom, la profession et les valeurs initiales sont ensuite verrouillés côté serveur.
 - Saisie numérique : boutons − / + partout, raccourcis −10 / +10 pour les montants et cargaisons, sélection de la valeur au toucher et retour à la dernière valeur valide si une saisie est vide ou hors limites.
 - Personnage : profession, niveau, endurance, six compétences (initiale, actuelle, bonus/malus et raison), défense calculée sans les bonus de Combat, titres et honneurs.
 - 12 emplacements transportés et possessions stockées par lieu, livre et section.
 - Journal, quêtes terminables et marque-page.
 - 194 codes A à F et 175 entrées de section des six livres, transcrits du livret fourni ; les cases multiples sont indépendantes. Ajout de codes personnalisés.
-- Bourse en shards, investissements, dépôts et retraits avec frais configurables. Les nouveaux placements débitent la bourse ; l’édition d’un montant ne simule pas une transaction. Les frais de retrait sont arrondis au shard supérieur.
+- Bourse en chardes, investissements, dépôts et retraits avec frais configurables. Les nouveaux placements débitent la bourse ; l’édition d’un montant ne simule pas une transaction. Les frais de retrait sont arrondis au shard supérieur.
 - Navires : type libre, équipage mauvais / moyen / bon / hors pair, capacité, cargaison et port.
 - Cultes, 13 sanctuaires, bénédictions, maladies, malédictions, sortilèges et résurrections.
-- Jets de 1D6 ou 2D6, tests de compétences et journal des combats. Une attaque utilise `2D6 + Combat`, puis inflige l’excédent sur la Défense. L’utilisateur applique les exceptions du livre et choisit l’ordre des attaques.
+- Jets de 1D6 ou 2D6, tests de compétences avec difficulté facultative et journal des combats. Un total égal à la difficulté est un échec. Une attaque utilise `2D6 + Combat`, puis inflige l’excédent sur la Défense. L’utilisateur applique les exceptions du livre et choisit l’ordre des attaques.
 - Import de cartes personnelles PNG, JPEG ou WebP : optimisation en JPEG, zoom dans une fenêtre défilante, notes par carte. Jusqu’à huit cartes par profil. Une bibliothèque de sept cartes JaFL (monde et six régions) est préajoutée par liens vers les images sources, avec attribution. Elle ne consomme pas les huit emplacements personnels ; les légendes des cartes sources sont en anglais.
+- Aide : encarts de conseils dans les rubriques et écran « Règles & astuces », à partir du tutoriel français fourni.
+- Endurance : un changement du maximum applique le même écart à la valeur actuelle, comme dans le livre.
 - Sauvegarde SQLite, copie locale des modifications en attente, synchronisation à la reconnexion et gestion explicite des conflits entre appareils.
 - Export JSON contenant tout le carnet et ses cartes personnelles, restauration avec confirmation dans le profil sélectionné. Une restauration ne peut pas changer le personnage déjà verrouillé.
 - Suppression de l’aventure avec confirmation SweetAlert2 : le prénom est conservé, le contenu est effacé et une nouvelle création devient possible. Une version ancienne ne peut pas réécrire le carnet après suppression (contrôle de version).
@@ -24,22 +26,26 @@ Les valeurs initiales sont immuables après validation. Les valeurs actuelles, l
 
 ## Règles de création et sources
 
-Vous avez confirmé que « race » désignait la **profession**. Le joueur choisit donc sa profession ; aucune règle raciale ni tirage de caractéristique n’est ajouté. Les données sources donnent des caractéristiques fixes par profession et tome, et non des caractéristiques aléatoires. Seul le nom proposé est tiré au hasard ; il peut être saisi librement avant confirmation. Régénérer conserve le choix de profession et de livre, avec une autre proposition de nom.
+Le tutoriel français du **tome 1 — Le Royaume déchiré**, fourni en PDF, est désormais la source primaire pour ce départ. Le tableau des six professions a été vérifié visuellement : **Prêtre, Mage, Voleur, Troubadour, Guerrier et Voyageur**. La profession fixe les compétences, sans tirage de caractéristiques.
 
-Source vérifiée : [JavaFabledLands / JaFL, révision cd56331](https://github.com/volpe-jb/JavaFabledLands/tree/cd56331da0433c8f1d60e39608614e2fc199d662). Chaque dossier `book1` à `book6` contient un fichier `Adventurers.xml` avec les six professions, leurs compétences, les sommes et l’équipement. Les faits utiles ont été transcrits dans `assets/creation-rules.json`, partagé entre l’interface et la validation PHP. Aucun code JaFL ni texte narratif du livre n’a été recopié.
+Toutes les professions commencent au **niveau 1, avec 9 points d’endurance actuelle et maximale, 16 chardes, une épée et un gilet en cuir (Défense +1)**. La carte et les armes propres aux professions de l’ancien modèle JaFL ont été retirées des nouveaux départs français au tome 1. Le nom peut être proposé au hasard ou saisi avant la confirmation définitive.
 
-| Livre de départ | Niveau | Endurance | Shards | Armure |
-| --- | --- | --- | --- | --- |
-| 1 | 1 | 9 | 16 | +1 |
-| 2 | 2 | 13 | 16 | +1 |
-| 3 | 3 | 16 | 40 | +3 |
-| 4 | 4 | 20 | 65 | +3 |
-| 5 | 5 | 23 | 65 | +3 |
-| 6 | 6 | 27 | 0 | 0 |
+Le détail de la comparaison, les références aux pages et les limites du suivi manuel figurent dans [la vérification du tome 1](docs/verification-tome1-fr.md). Le PDF original n’est pas publié dans ce dépôt.
 
-Les armes et autres possessions dépendent également du tome et parfois de la profession ; le tome 6 commence uniquement avec une boucle d’oreille en platine. Le catalogue de cartes vient du même dépôt, révision figée. Les cartes sont affichées à partir de `raw.githubusercontent.com`, avec liens de source, et ne sont pas redistribuées dans cette application. Une connexion Internet est nécessaire à leur chargement ; les cartes importées personnellement restent intégrées aux sauvegardes.
+`assets/creation-rules.json` est partagé entre le générateur et la validation PHP. Les valeurs des autres tomes restent issues de [JaFL, révision cd56331](https://github.com/volpe-jb/JavaFabledLands/tree/cd56331da0433c8f1d60e39608614e2fc199d662) : leurs tutoriels français ne sont pas fournis. Les fiches déjà verrouillées continuent à utiliser le référentiel antérieur `assets/creation-rules-jafl.json`, sans modification de leur personnage ou équipement.
 
-Les données JaFL correspondent aux règles de l’édition originale qu’implémente cette application de référence. Comparer les valeurs avec votre édition française si elle comporte des changements ; le livret PDF fourni ne contient pas les règles de création.
+| Livre de départ | Niveau | Endurance | Chardes | Armure | Source |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 1 | 9 | 16 | +1 | Tutoriel français fourni |
+| 2 | 2 | 13 | 16 | +1 | JaFL |
+| 3 | 3 | 16 | 40 | +3 | JaFL |
+| 4 | 4 | 20 | 65 | +3 | JaFL |
+| 5 | 5 | 23 | 65 | +3 | JaFL |
+| 6 | 6 | 27 | 0 | 0 | JaFL |
+
+Les armes et autres possessions des tomes 2 à 6 dépendent de leurs données JaFL ; le tome 6 commence uniquement avec une boucle d’oreille en platine. Pour les mécaniques du carnet : Défense sans bonus de Combat, compétences de base entre 1 et 12, tests strictement supérieurs à la difficulté, et variation identique de l’endurance actuelle et maximale lors d’une modification du maximum. Les bonus d’objets ne sont pas cumulables : le joueur reporte le meilleur bonus dans sa fiche.
+
+La [page de cartes françaises fournie](https://www.fabledlands.fr/2020/04/carte-du-monde.html?m=1) est mise en avant dans le logiciel pour le monde et les tomes 1 à 4. L’accès réseau à cette page est bloqué dans l’environnement de développement ; le téléchargement direct de ses images reste à terminer. Les sept cartes JaFL préexistantes restent disponibles avec la mention « en anglais », et l’import personnel est conservé. Ne pas confondre ces aperçus avec les cartes françaises.
 
 ## Déployer sur O2Switch
 
@@ -83,11 +89,12 @@ php -l dev-router.php
 php -l lib/adventure.php
 node --check assets/app.js
 node --check assets/adventure.js
+node --check assets/rules.js
 # Playwright est nécessaire uniquement pour les tests de navigateur.
 PHP_BIN=php CHROMIUM_BIN=/usr/bin/chromium node tests/smoke.cjs
 ```
 
-Le test navigateur utilise Playwright, une copie temporaire du site et une base isolée. Il vérifie les profils, la création, le verrouillage serveur, la migration des anciens carnets, les calculs, les saisies numériques, les listes, les transactions, les combats, les cartes, l’export/restauration, la session automatique, les coupures réseau, les conflits, la suppression confirmée, la validation serveur et les largeurs iPhone. Il n’écrit pas de faux profils dans votre base. Des captures sont générées sous `tests/artifacts/` (ignorées par Git).
+Le test navigateur utilise Playwright, une copie temporaire du site et une base isolée. Il vérifie les profils, la création, le verrouillage serveur, la migration des anciens carnets, les calculs, les saisies numériques, les listes, les transactions, les combats, les cartes, les règles du tutoriel français, la variation d’endurance, l’export/restauration, la session automatique, les coupures réseau, les conflits, la suppression confirmée, la validation serveur et les largeurs iPhone. Il n’écrit pas de faux profils dans votre base. Des captures sont générées sous `tests/artifacts/` (ignorées par Git).
 
 L’API n’active pas CORS. Les écritures exigent du JSON et rejettent les origines externes. Les mises à jour utilisent un numéro de version pour empêcher l’écrasement silencieux d’une sauvegarde concurrente. La base SQLite utilise les requêtes préparées et un délai d’attente de verrouillage.
 
