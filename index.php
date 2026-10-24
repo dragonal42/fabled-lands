@@ -13,11 +13,13 @@ header('X-Content-Type-Options: nosniff');
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Terres fabuleuses">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="description" content="Votre compagnon de lecture et carnet d’aventure pour les Terres fabuleuses.">
   <title>Terres fabuleuses — Carnet d’aventure</title>
-  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/favicon.ico?v=20261024" sizes="any">
+  <link rel="icon" href="assets/favicon-32.png?v=20261024" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=20261024" sizes="180x180">
+  <link rel="manifest" href="manifest.webmanifest?v=20261024">
   <link rel="stylesheet" href="assets/style.css?v=20261024-lecture">
   <link rel="stylesheet" href="assets/vendor/sweetalert2.min.css">
   <link rel="stylesheet" href="assets/controls.css?v=20261024-lecture">
@@ -25,7 +27,8 @@ header('X-Content-Type-Options: nosniff');
   <script src="assets/game-data.js" defer></script>
   <script src="assets/adventure.js?v=20261024-lecture" defer></script>
   <script src="assets/rules.js" defer></script>
-  <script src="assets/app.js" defer></script>
+  <script src="assets/app.js?v=20261024-install" defer></script>
+  <script src="assets/install.js" defer></script>
 </head>
 <body>
   <div id="app"><div class="loading">✧<p>Ouverture du carnet…</p></div></div>

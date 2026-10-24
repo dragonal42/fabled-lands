@@ -6,7 +6,8 @@ if ($path === '/' || $path === '/index.php') { require __DIR__ . '/index.php'; r
 if ($path === '/getApi.php') { require __DIR__ . '/getApi.php'; return true; }
 $file = realpath(__DIR__ . $path);
 if ($path === '/manifest.webmanifest') return false;
-if (str_starts_with($path, '/assets/') && $file && str_starts_with($file, __DIR__ . '/assets/') && is_file($file) && preg_match('/\.(css|js|json|svg|png|jpg|jpeg|webp)$/i', $file)) return false;
+if ($path === '/sw.js') { header('Content-Type: application/javascript; charset=utf-8'); header('Cache-Control: no-cache'); readfile(__DIR__ . '/sw.js'); return true; }
+if (str_starts_with($path, '/assets/') && $file && str_starts_with($file, __DIR__ . '/assets/') && is_file($file) && preg_match('/\.(css|js|json|svg|png|jpg|jpeg|webp|ico)$/i', $file)) return false;
 http_response_code(404);
 echo 'Introuvable';
 return true;

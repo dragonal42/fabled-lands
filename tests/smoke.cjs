@@ -26,7 +26,7 @@ async function finishCharacter(page,profile,name){
 async function current(page){return page.evaluate(async()=>{const s=JSON.parse(localStorage.getItem('fl.session'));return(await fetch('getApi.php?id='+s.id)).json();});}
 (async()=>{
  tmp=await fs.mkdtemp(path.join(os.tmpdir(),'fabled-test-'));
- for(const item of ['index.php','getApi.php','getRouter.php','assets','lib','manifest.webmanifest'])await fs.cp(path.join(root,item),path.join(tmp,item),{recursive:true});
+ for(const item of ['index.php','getApi.php','getRouter.php','sw.js','assets','lib','manifest.webmanifest'])await fs.cp(path.join(root,item),path.join(tmp,item),{recursive:true});
  server=spawn(process.env.PHP_BIN||'php',['-S','127.0.0.1:8089','getRouter.php'],{cwd:tmp,stdio:['ignore','ignore','pipe']});
  let serverLog='';server.stderr.on('data',d=>serverLog+=d);server.on('error',()=>{});
  for(let i=0;i<50;i++){try{if((await fetch(url+'/getApi.php')).ok)break;}catch{}await new Promise(r=>setTimeout(r,100));}
@@ -36,6 +36,16 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error'&&/Content Security Policy/.test(m.text()))errors.push(m.text());});
  await check('Accueil français et création du profil par prénom',async()=>{
   await page.goto(url);await page.getByLabel('Votre prénom',{exact:true}).fill('Camille');await page.getByRole('button',{name:/Créer mon carnet/}).click();await finishCharacter(page,'Camille','Aëlys');await settled(page);
+ });
+ await check('Installation : manifeste, icônes et réouverture hors ligne sans cache API',async()=>{
+  const response=await page.request.get(url+'/manifest.webmanifest');assert.ok(response.ok());const manifest=await response.json();assert.equal(manifest.display,'standalone');assert.equal(manifest.scope,'./');assert.equal(manifest.start_url,'./');
+  for(const icon of manifest.icons){assert.ok((await page.request.get(url+'/'+icon.src)).ok());const dimensions=await page.evaluate(async src=>{const img=new Image();img.src=src;await img.decode();return `${img.naturalWidth}x${img.naturalHeight}`;},icon.src);assert.equal(dimensions,icon.sizes);}
+  assert.ok(manifest.icons.some(i=>i.sizes==='192x192'));assert.ok(manifest.icons.some(i=>i.sizes==='512x512'&&i.purpose==='maskable'));
+  for(const rel of ['icon','apple-touch-icon'])assert.ok((await page.request.get(new URL(await page.locator(`link[rel="${rel}"]`).first().getAttribute('href'),url).href)).ok());
+  await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
+  const before=await current(page);await context.setOffline(true);await page.reload();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();assert.equal(await page.locator('.user-button b').textContent(),'Camille');
+  const cachedApi=await page.evaluate(async()=>{const keys=await caches.keys();const urls=(await Promise.all(keys.map(async key=>(await(await caches.open(key)).keys()).map(r=>r.url)))).flat();return urls.filter(u=>u.includes('getApi.php'));});assert.deepEqual(cachedApi,[]);
+  await context.setOffline(false);await page.reload();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();assert.deepEqual((await current(page)).state,before.state);
  });
  await check('Personnage définitif : identité et valeurs initiales protégées côté serveur',async()=>{
   const p=await current(page);assert.equal(p.state.adventure.status,'locked');assert.equal(p.state.hero.rank,1);assert.equal(p.state.hero.maxStamina,9);assert.equal(p.state.gold,16);assert.equal(p.state.hero.armour,1);assert.deepEqual(Object.values(p.state.skills).map(s=>s.initial),[3,6,2,4,3,2]);
