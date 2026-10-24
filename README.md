@@ -104,6 +104,4 @@ L’application a été vérifiée avec PHP 8.4 / SQLite et Chromium. Le serveur
 
 SweetAlert2 11.26.25 est fourni sous licence MIT dans `assets/vendor/`, avec sa licence. La distribution npm a été vérifiée avec son empreinte d’intégrité SHA-512. Aucun CDN n’est utilisé pour son fonctionnement.
 
-La carte française du tome 3 est conservée à sa résolution reçue de 214 × 280 pixels : ses petits libellés restent peu lisibles en zoom. Cette limite est indiquée dans la bibliothèque.
-
-La carte française du tome 4 est conservée à sa résolution reçue de 207 × 280 pixels : ses petits libellés restent peu lisibles en zoom. Cette limite est indiquée dans la bibliothèque.
+Les cartes françaises des tomes 3 et 4 ont été remplacées par les nouvelles images fournies : 977 × 1280 pixels pour le tome 3 et 946 × 1280 pixels pour le tome 4. Les fichiers sont conservés sans recompression ; les anciennes mentions de faible résolution ont été retirées.

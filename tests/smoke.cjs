@@ -141,7 +141,7 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
  });
  await check('Bibliothèque : sept cartes, cartes françaises locales et import personnel conservé',async()=>{
   await navigate(page,'maps');assert.equal(await page.locator('[data-catalog-map]').count(),7);
-  const expected=[['world','monde-fr.jpg',1280,795],['book-1','sokara-fr.jpg',534,639],['book-2','golnir-fr.jpg',530,640],['book-3','ocean-violet-fr.jpg',214,280],['book-4','grandes-steppes-fr.jpg',207,280]];
+  const expected=[['world','monde-fr.jpg',1280,795],['book-1','sokara-fr.jpg',534,639],['book-2','golnir-fr.jpg',530,640],['book-3','ocean-violet-fr.jpg',977,1280],['book-4','grandes-steppes-fr.jpg',946,1280]];
   for(const [id,file,width,height]of expected){await page.locator(`[data-catalog-map="${id}"]`).click();const image=page.locator('.map-viewer img');assert.equal(await image.getAttribute('src'),'assets/maps/'+file);await image.evaluate(img=>img.decode());assert.equal(await image.evaluate(img=>img.naturalWidth),width);assert.equal(await image.evaluate(img=>img.naturalHeight),height);await page.locator('[data-close]').click();}
   assert.equal(await page.locator('.french-library [data-catalog-map]').count(),5);assert.equal(await page.locator('.map-library:not(.french-library) [data-catalog-map]').count(),2);assert.equal(await page.locator('[data-map]').count(),1);
  });

@@ -29,8 +29,7 @@
     "title": "L’océan Violet",
     "image": "assets/maps/ocean-violet-fr.jpg",
     "language": "fr",
-    "credit": "Carte française du tome 3 fournie pour ce carnet",
-    "note": "Image de 214 × 280 pixels : les petits libellés restent difficiles à lire en zoom."
+    "credit": "Carte française du tome 3 fournie pour ce carnet"
   },
   {
     "id": "book-4",
@@ -38,8 +37,7 @@
     "title": "Les Grandes Steppes",
     "image": "assets/maps/grandes-steppes-fr.jpg",
     "language": "fr",
-    "credit": "Carte française du tome 4 fournie pour ce carnet",
-    "note": "Image de 207 × 280 pixels : les petits libellés restent difficiles à lire en zoom."
+    "credit": "Carte française du tome 4 fournie pour ce carnet"
   },
   {
     "id": "book-5",
