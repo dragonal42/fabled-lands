@@ -15,7 +15,7 @@ Compagnon de lecture en français pour les livres-jeux Fabled Lands, réalisé e
 - Navires : type libre, équipage mauvais / moyen / bon / hors pair, capacité, cargaison et port.
 - Cultes, 13 sanctuaires, bénédictions, maladies, malédictions, sortilèges et résurrections.
 - Jets de 1D6 ou 2D6, tests de compétences avec difficulté facultative et journal des combats. Un total égal à la difficulté est un échec. Une attaque utilise `2D6 + Combat`, puis inflige l’excédent sur la Défense. L’utilisateur applique les exceptions du livre et choisit l’ordre des attaques.
-- Import de cartes personnelles PNG, JPEG ou WebP : optimisation en JPEG, zoom dans une fenêtre défilante, notes par carte. Jusqu’à huit cartes par profil. Une bibliothèque de sept cartes JaFL (monde et six régions) est préajoutée par liens vers les images sources, avec attribution. Elle ne consomme pas les huit emplacements personnels ; les légendes des cartes sources sont en anglais.
+- Import de cartes personnelles PNG, JPEG ou WebP : optimisation en JPEG, zoom dans une fenêtre défilante, notes par carte. Jusqu’à huit cartes par profil. La carte complète du monde en français est incluse localement dans `assets/maps/monde-fr.jpg` ; six cartes régionales anglaises JaFL restent disponibles depuis leur dépôt source. Cette bibliothèque ne consomme pas les huit emplacements personnels.
 - Aide : encarts de conseils dans les rubriques et écran « Règles & astuces », à partir du tutoriel français fourni.
 - Endurance : un changement du maximum applique le même écart à la valeur actuelle, comme dans le livre.
 - Sauvegarde SQLite, copie locale des modifications en attente, synchronisation à la reconnexion et gestion explicite des conflits entre appareils.
@@ -45,7 +45,7 @@ Le détail de la comparaison, les références aux pages et les limites du suivi
 
 Les armes et autres possessions des tomes 2 à 6 dépendent de leurs données JaFL ; le tome 6 commence uniquement avec une boucle d’oreille en platine. Pour les mécaniques du carnet : Défense sans bonus de Combat, compétences de base entre 1 et 12, tests strictement supérieurs à la difficulté, et variation identique de l’endurance actuelle et maximale lors d’une modification du maximum. Les bonus d’objets ne sont pas cumulables : le joueur reporte le meilleur bonus dans sa fiche.
 
-La [page de cartes françaises fournie](https://www.fabledlands.fr/2020/04/carte-du-monde.html?m=1) est mise en avant dans le logiciel pour le monde et les tomes 1 à 4. L’accès réseau à cette page est bloqué dans l’environnement de développement ; le téléchargement direct de ses images reste à terminer. Les sept cartes JaFL préexistantes restent disponibles avec la mention « en anglais », et l’import personnel est conservé. Ne pas confondre ces aperçus avec les cartes françaises.
+La [page de cartes françaises fournie](https://www.fabledlands.fr/2020/04/carte-du-monde.html?m=1) est mise en avant dans le logiciel pour le monde et les tomes 1 à 4. L’accès réseau à cette page est bloqué dans l’environnement de développement ; la récupération des cartes françaises régionales reste à terminer. La carte française du monde, fournie ensuite par l’utilisateur, est maintenant incluse directement dans l’application et remplace son aperçu anglais. Les six cartes régionales JaFL restent indiquées « en anglais », et l’import personnel est conservé.
 
 ## Déployer sur O2Switch
 

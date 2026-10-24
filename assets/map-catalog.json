@@ -3,49 +3,56 @@
     "id": "world",
     "book": 0,
     "title": "Le monde des Terres fabuleuses",
-    "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/global.jpg",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/global.jpg"
+    "image": "assets/maps/monde-fr.jpg",
+    "language": "fr",
+    "credit": "Carte française fournie pour ce carnet"
   },
   {
     "id": "book-1",
     "book": 1,
     "title": "Sokara",
     "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book1/Sokara.JPG",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book1/Sokara.JPG"
+    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book1/Sokara.JPG",
+    "language": "en"
   },
   {
     "id": "book-2",
     "book": 2,
     "title": "Golnir",
     "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book2/Golnir.JPG",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book2/Golnir.JPG"
+    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book2/Golnir.JPG",
+    "language": "en"
   },
   {
     "id": "book-3",
     "book": 3,
     "title": "L’océan Violet",
     "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book3/Violet%20Ocean.JPG",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book3/Violet%20Ocean.JPG"
+    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book3/Violet%20Ocean.JPG",
+    "language": "en"
   },
   {
     "id": "book-4",
     "book": 4,
     "title": "Les Grandes Steppes",
     "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book4/Great%20Steppes.JPG",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book4/Great%20Steppes.JPG"
+    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book4/Great%20Steppes.JPG",
+    "language": "en"
   },
   {
     "id": "book-5",
     "book": 5,
     "title": "Uttaku",
     "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book5/Uttaku.JPG",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book5/Uttaku.JPG"
+    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book5/Uttaku.JPG",
+    "language": "en"
   },
   {
     "id": "book-6",
     "book": 6,
     "title": "Akatsuraï",
     "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book6/Akatsurai.JPG",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book6/Akatsurai.JPG"
+    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book6/Akatsurai.JPG",
+    "language": "en"
   }
 ]
