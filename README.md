@@ -49,10 +49,14 @@ La [page de cartes françaises fournie](https://www.fabledlands.fr/2020/04/carte
 
 ## Déployer sur O2Switch
 
+Convention de nommage : tous les fichiers PHP, sauf `index.php`, commencent par `get` ou `set`. L’API est `getApi.php`, le routeur de développement est `getRouter.php`, et les fonctions de validation sont dans `lib/getAdventure.php`.
+
+Pour une mise à jour d’une installation antérieure à ce renommage, déposer les nouveaux fichiers puis supprimer les anciens `api.php`, `dev-router.php` et `lib/adventure.php` de l’hébergement. Conserver `aventures.sqlite` et les autres fichiers de sauvegarde.
+
 1. Choisir **PHP 8.1 ou supérieur** dans cPanel et activer **PDO / pdo_sqlite / sqlite3**. PHP 8.2 ou supérieur recommandé. Aucun serveur MySQL nécessaire.
 2. Créer un dossier dans `public_html`, par exemple `aventures`.
-3. Y déposer **index.php**, **api.php**, **.htaccess**, **manifest.webmanifest** et les dossiers **assets** et **lib** complets (y compris `assets/vendor` et `assets/creation-rules.json`). L’archive de déploiement contient uniquement ces fichiers et une notice. Vérifier que le transfert conserve `.htaccess`, qui peut être masqué dans le gestionnaire de fichiers.
-4. Le dossier doit être accessible en écriture à PHP : SQLite créera automatiquement `aventures.sqlite` **dans le même dossier** que `api.php`. Des permissions ordinaires de 755 pour les dossiers et 644 pour les fichiers conviennent habituellement quand PHP s’exécute avec votre compte ; ne pas utiliser 777.
+3. Y déposer **index.php**, **getApi.php**, **.htaccess**, **manifest.webmanifest** et les dossiers **assets** et **lib** complets (y compris `assets/vendor` et `assets/creation-rules.json`). L’archive de déploiement contient uniquement ces fichiers et une notice. Vérifier que le transfert conserve `.htaccess`, qui peut être masqué dans le gestionnaire de fichiers.
+4. Le dossier doit être accessible en écriture à PHP : SQLite créera automatiquement `aventures.sqlite` **dans le même dossier** que `getApi.php`. Des permissions ordinaires de 755 pour les dossiers et 644 pour les fichiers conviennent habituellement quand PHP s’exécute avec votre compte ; ne pas utiliser 777.
 5. Ouvrir l’adresse HTTPS du dossier. Créer un profil par prénom, choisir une profession et un livre, générer puis valider définitivement le personnage, modifier une statistique actuelle, attendre « Sauvegardé », puis recharger la page. Tester aussi avec un second navigateur pour vérifier la sauvegarde serveur.
 6. **Vérifier impérativement** que l’adresse `…/aventures/aventures.sqlite` renvoie **403** et ne télécharge pas de fichier. La protection Apache `.htaccess` bloque également les journaux SQLite. Si le téléchargement fonctionne, retirer temporairement l’application du Web et faire activer les règles Apache par l’hébergeur avant utilisation.
 7. Sur iPhone : Safari → Partager → **Sur l’écran d’accueil**. L’interface reste utilisable dans Safari sans installation.
@@ -73,7 +77,7 @@ Avec PHP et l’extension PDO SQLite installés :
 
 ```sh
 cd /chemin/vers/fabled-lands
-php -S 127.0.0.1:8080 dev-router.php
+php -S 127.0.0.1:8080 getRouter.php
 ```
 
 Le routeur local protège les fichiers SQLite et les fichiers de développement ; ne pas utiliser un serveur PHP sans ce routeur. Apache en production utilise `.htaccess`. Aucune installation de dépendances applicatives nécessaire.
@@ -83,10 +87,10 @@ Dans l’environnement cloud préparé, le binaire de test est `/workspace/tooli
 ## Vérifications
 
 ```sh
-php -l api.php
+php -l getApi.php
 php -l index.php
-php -l dev-router.php
-php -l lib/adventure.php
+php -l getRouter.php
+php -l lib/getAdventure.php
 node --check assets/app.js
 node --check assets/adventure.js
 node --check assets/rules.js

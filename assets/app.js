@@ -63,7 +63,7 @@ function cache() {if(profile&&state)local.set(cacheKey(profile.id),{state,versio
 function toast(message){const el=$('#toast');el.textContent=message;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),4500);}
 async function api(body=null,id='') {
   let res;
-  try {res=await fetch('api.php'+(id?'?id='+encodeURIComponent(id):''),body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{cache:'no-store'});}catch{throw Error('Connexion indisponible. Vos modifications restent sur cet appareil.');}
+  try {res=await fetch('getApi.php'+(id?'?id='+encodeURIComponent(id):''),body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{cache:'no-store'});}catch{throw Error('Connexion indisponible. Vos modifications restent sur cet appareil.');}
   const data=await res.json().catch(()=>({error:'Le serveur ne répond pas au format attendu.'}));
   if(!res.ok){const error=Error(data.error||'Erreur du serveur.');error.status=res.status;throw error;}return data;
 }
