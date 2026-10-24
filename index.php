@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 header('Content-Type: text/html; charset=utf-8');
-header("Content-Security-Policy: default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'");
+header("Content-Security-Policy: default-src 'self'; img-src 'self' data: blob: https://raw.githubusercontent.com; style-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'");
 header('X-Content-Type-Options: nosniff');
 ?>
 <!doctype html>
@@ -19,7 +19,11 @@ header('X-Content-Type-Options: nosniff');
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/vendor/sweetalert2.min.css">
+  <link rel="stylesheet" href="assets/controls.css">
+  <script src="assets/vendor/sweetalert2.min.js" defer></script>
   <script src="assets/game-data.js" defer></script>
+  <script src="assets/adventure.js" defer></script>
   <script src="assets/app.js" defer></script>
 </head>
 <body>

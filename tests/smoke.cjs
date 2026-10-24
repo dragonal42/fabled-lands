@@ -20,10 +20,13 @@ async function fillDialog(page,values){
  for(const [key,value]of Object.entries(values)){const input=page.locator(`#modal [name="${key}"]`);if(await input.evaluate(el=>el.tagName==='SELECT'))await input.selectOption(String(value));else await input.fill(String(value));}
  await page.locator('#modal button.primary').click();await page.locator('#modal').waitFor({state:'hidden'});
 }
+async function finishCharacter(page,profile,name){
+ await page.locator('#creation-form').waitFor();await page.locator('#creation-form [name="profession"]').selectOption('Guerrier');await page.locator('#creation-form .primary').click();await page.locator('#candidate-name').fill(name);await page.locator('[data-action="finalize-character"]').click();await page.locator('.swal2-confirm').click();await page.locator('.swal2-container').waitFor({state:'hidden'});await page.getByRole('heading',{name:'Bon retour, '+profile+'.'}).waitFor();
+}
 async function current(page){return page.evaluate(async()=>{const s=JSON.parse(localStorage.getItem('fl.session'));return(await fetch('api.php?id='+s.id)).json();});}
 (async()=>{
  tmp=await fs.mkdtemp(path.join(os.tmpdir(),'fabled-test-'));
- for(const item of ['index.php','api.php','dev-router.php','assets','manifest.webmanifest'])await fs.cp(path.join(root,item),path.join(tmp,item),{recursive:true});
+ for(const item of ['index.php','api.php','dev-router.php','assets','lib','manifest.webmanifest'])await fs.cp(path.join(root,item),path.join(tmp,item),{recursive:true});
  server=spawn(process.env.PHP_BIN||'php',['-S','127.0.0.1:8089','dev-router.php'],{cwd:tmp,stdio:['ignore','ignore','pipe']});
  let serverLog='';server.stderr.on('data',d=>serverLog+=d);server.on('error',()=>{});
  for(let i=0;i<50;i++){try{if((await fetch(url+'/api.php')).ok)break;}catch{}await new Promise(r=>setTimeout(r,100));}
@@ -32,15 +35,20 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
  const page=await context.newPage();const errors=[];
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error'&&/Content Security Policy/.test(m.text()))errors.push(m.text());});
  await check('Accueil français et création du profil par prénom',async()=>{
-  await page.goto(url);await page.getByLabel('Votre prénom',{exact:true}).fill('Camille');await page.getByRole('button',{name:/Créer mon carnet/}).click();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();await settled(page);
+  await page.goto(url);await page.getByLabel('Votre prénom',{exact:true}).fill('Camille');await page.getByRole('button',{name:/Créer mon carnet/}).click();await finishCharacter(page,'Camille','Aëlys');await settled(page);
+ });
+ await check('Personnage définitif : identité et valeurs initiales protégées côté serveur',async()=>{
+  const p=await current(page);assert.equal(p.state.adventure.status,'locked');assert.equal(p.state.hero.rank,1);assert.equal(p.state.hero.maxStamina,9);assert.equal(p.state.gold,16);assert.equal(p.state.hero.armour,1);assert.deepEqual(Object.values(p.state.skills).map(s=>s.initial),[3,6,2,4,3,2]);
+  const post=state=>fetch(url+'/api.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'save',id:p.id,version:p.version,state})});
+  for(const mutate of [s=>s.hero.profession='Mage',s=>s.hero.name='Autre nom',s=>s.skills.Combat.initial=12,s=>s.adventure.status='draft',s=>delete s.adventure]){const changed=structuredClone(p.state);mutate(changed);assert.equal((await post(changed)).status,422);}
  });
  await check('Statistiques, bonus et défense calculée',async()=>{
   await page.locator('.mobile-nav [data-nav="hero"]').click();
-  for(const [key,value]of Object.entries({'hero.name':'Aëlys','hero.profession':'Exploratrice','hero.rank':2,'hero.armour':1,'hero.maxStamina':14,'hero.stamina':12,'skills.Combat.initial':6,'skills.Combat.current':8,'skills.Combat.bonus':2}))await page.locator(`[data-field="${key}"]`).fill(String(value));
+  for(const [key,value]of Object.entries({'hero.rank':2,'hero.armour':1,'hero.maxStamina':14,'hero.stamina':12,'skills.Combat.current':8,'skills.Combat.bonus':2}))await page.locator(`[data-field="${key}"]`).fill(String(value));
   assert.equal(await page.locator('#defence-total').textContent(),'11');assert.equal(await page.locator('[data-skill-total="Combat"]').textContent(),'10');await settled(page);
  });
  await check('Possessions transportées et stockées',async()=>{
-  await navigate(page,'inventory');await add(page,'inventory',{name:'Épée de marin',quantity:1,notes:'Combat +2'});await add(page,'storage',{location:'Maison de Sokara',book:1,section:100,items:'Corde\nLanterne'});await settled(page);assert.equal((await current(page)).state.inventory[0].name,'Épée de marin');
+  await navigate(page,'inventory');await add(page,'inventory',{name:'Épée de marin',quantity:1,notes:'Combat +2'});await add(page,'storage',{location:'Maison de Sokara',book:1,section:100,items:'Corde\nLanterne'});await settled(page);assert.equal((await current(page)).state.inventory.find(r=>r.name==='Épée de marin').name,'Épée de marin');
  });
  await check('Bourse, dépôt et retrait avec frais de 10 %',async()=>{
   await navigate(page,'money');await page.locator('[data-field="gold"]').fill('1000');await add(page,'deposits',{location:'Guilde de Sokara',amount:100,fee:10});
@@ -82,7 +90,7 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
   await page.locator('[data-field="notes"]').fill('Modification de cet appareil.');await page.waitForFunction(()=>document.querySelector('.notice')?.textContent.includes('changé ailleurs'));await navigate(page,'backup');await page.locator('[data-action="remote"]').click();await page.locator('#modal button.primary').click();await page.locator('#modal').waitFor({state:'hidden'});assert.equal(await page.locator('.conflict-panel').count(),0);await navigate(page,'journal');assert.equal(await page.locator('[data-field="notes"]').inputValue(),'Version écrite par un autre appareil.');
  });
  await check('Changement de prénom, liste des profils et isolation des carnets',async()=>{
-  await page.locator('.user-button').click();await page.getByLabel('Votre prénom',{exact:true}).fill('Jules');await page.getByRole('button',{name:/Créer mon carnet/}).click();await page.getByRole('heading',{name:'Bon retour, Jules.'}).waitFor();await settled(page);assert.equal((await current(page)).state.inventory.length,0);await page.locator('.user-button').click();await page.locator('#profile-form').waitFor();assert.equal(await page.locator('[data-enter]').count(),2);await page.locator('[data-enter]').filter({hasText:'Camille'}).click();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();
+  await page.locator('.user-button').click();await page.getByLabel('Votre prénom',{exact:true}).fill('Jules');await page.getByRole('button',{name:/Créer mon carnet/}).click();await finishCharacter(page,'Jules','Orin');await settled(page);assert.equal((await current(page)).state.inventory.length,3);assert.ok(!(await current(page)).state.inventory.some(r=>r.name==='Épée de marin'));await page.locator('.user-button').click();await page.locator('#profile-form').waitFor();assert.equal(await page.locator('[data-enter]').count(),2);await page.locator('[data-enter]').filter({hasText:'Camille'}).click();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();
  });
  await check('Doublons de prénoms, validation API et SQLite non téléchargeable',async()=>{
   const post=async body=>fetch(url+'/api.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
@@ -99,11 +107,36 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
  await check('Conflit : conserver la copie locale de manière explicite',async()=>{
   await navigate(page,'journal');const p=await current(page);const other=structuredClone(p.state);other.notes='Autre appareil';await fetch(url+'/api.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'save',id:p.id,version:p.version,state:other})});await page.locator('[data-field="notes"]').fill('La copie locale que je conserve.');await page.waitForFunction(()=>!!document.querySelector('.notice'));await navigate(page,'backup');await page.locator('[data-action="local"]').click();await page.locator('#modal button.primary').click();await page.locator('#modal').waitFor({state:'hidden'});await settled(page);assert.equal((await current(page)).state.notes,'La copie locale que je conserve.');
  });
+ await check('Saisies numériques : boutons, grands pas, limites et champs verrouillés',async()=>{
+  await navigate(page,'money');const gold=page.locator('[data-field="gold"]');const before=Number(await gold.inputValue());const control=gold.locator('..');await control.locator('[data-number-step="10"]').click();assert.equal(Number(await gold.inputValue()),before+10);await control.locator('[data-number-step="-1"]').click();assert.equal(Number(await gold.inputValue()),before+9);await gold.fill('');await gold.blur();assert.equal(Number(await gold.inputValue()),before+9);await settled(page);
+  await navigate(page,'hero');assert.equal(await page.locator('[data-field="hero.profession"]').getAttribute('readonly'),'');const initial=page.locator('[data-field="skills.Combat.initial"]');assert.equal(await initial.locator('..').locator('[data-number-step="1"]').isDisabled(),true);
+  const stamina=page.locator('[data-field="hero.stamina"]');await stamina.fill('0');await stamina.locator('..').locator('[data-number-step="-1"]').click({force:true});assert.equal(await stamina.inputValue(),'0');await settled(page);await fs.mkdir(path.join(__dirname,'artifacts'),{recursive:true});await page.locator('#toast').evaluate(el=>el.classList.remove('show'));await page.screenshot({path:path.join(__dirname,'artifacts/saisies-iphone.png'),fullPage:true});
+ });
+ await check('Bibliothèque : sept cartes préajoutées, source et import personnel conservés',async()=>{
+  await navigate(page,'maps');assert.equal(await page.locator('[data-catalog-map]').count(),7);await page.locator('[data-catalog-map="world"]').click();assert.match(await page.locator('.map-viewer img').getAttribute('src'),/raw.githubusercontent.com/);await page.locator('[data-close]').click();assert.equal(await page.locator('[data-map]').count(),1);
+ });
+ await check('Restaurer un autre personnage est refusé sans altérer le carnet courant',async()=>{
+  await navigate(page,'backup');const before=await current(page);const changed=structuredClone(before.state);changed.hero.name='Autre personnage';changed.adventure.creation.name='Autre personnage';await page.locator('#import-file').setInputFiles({name:'autre-personnage.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({...exported,state:changed}))});await page.locator('#modal button.primary').click();await page.locator('#modal .form-error').filter({hasText:'définitif'}).waitFor();assert.deepEqual((await current(page)).state,before.state);await page.locator('#modal [data-close]').first().click();await page.reload();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();assert.equal((await current(page)).state.hero.name,'Aëlys');
+ });
+ await check('Ancienne sauvegarde sans métadonnées : migration et identité conservées',async()=>{
+  const p=await current(page);const old=structuredClone(p.state);delete old.adventure;
+  // Injection d’un format historique dans la base isolée : simule une mise à jour du site.
+  const created=await(await fetch(url+'/api.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'create',name:'Ancien profil'})})).json();
+  const {execFileSync}=require('node:child_process');execFileSync(process.env.PHP_BIN||'php',['-r','$d=new PDO("sqlite:".$argv[1]);$q=$d->prepare("UPDATE profiles SET state=? WHERE id=?");$q->execute([$argv[2],$argv[3]]);',path.join(tmp,'aventures.sqlite'),JSON.stringify(old),created.id]);
+  const other=await browser.newContext();const oldPage=await other.newPage();await oldPage.goto(url);await oldPage.locator('[data-enter]').filter({hasText:'Ancien profil'}).click();await oldPage.getByRole('heading',{name:'Bon retour, Ancien profil.'}).waitFor();await navigate(oldPage,'journal');await oldPage.locator('[data-field="notes"]').fill('Ancienne aventure préservée.');await settled(oldPage);const migrated=await current(oldPage);assert.equal(migrated.state.adventure.status,'legacy');assert.equal(migrated.state.hero.name,'Aëlys');await navigate(oldPage,'hero');assert.equal(await oldPage.locator('[data-field="hero.name"]').getAttribute('readonly'),'');await other.close();
+ });
  await check('Toutes les rubriques restent dans la largeur d’un iPhone',async()=>{
   for(const width of [375,390,430]){await page.setViewportSize({width,height:844});for(const name of ['home','hero','inventory','journal','codes','sections','money','ships','cults','combat','maps','backup','more']){await navigate(page,name);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`Débordement à ${width}px : ${name}`);}}
  });
  await check('Vues bureau et mobile sans erreur JavaScript ou CSP',async()=>{
-  await fs.mkdir(path.join(__dirname,'artifacts'),{recursive:true});await page.setViewportSize({width:390,height:844});await navigate(page,'home');await page.locator('#toast').evaluate(el=>el.classList.remove('show'));await page.mouse.move(0,0);await page.screenshot({path:path.join(__dirname,'artifacts/iphone.png'),fullPage:true});await page.setViewportSize({width:1440,height:1100});await navigate(page,'home');await page.screenshot({path:path.join(__dirname,'artifacts/desktop.png'),fullPage:true});assert.deepEqual(errors,[]);assert.ok(!/Fatal error|Uncaught/.test(serverLog));
+  await fs.mkdir(path.join(__dirname,'artifacts'),{recursive:true});await page.setViewportSize({width:390,height:844});await navigate(page,'home');await page.locator('#toast').evaluate(el=>el.classList.remove('show'));await page.mouse.move(0,0);await page.screenshot({path:path.join(__dirname,'artifacts/iphone.png'),fullPage:true});await page.setViewportSize({width:1440,height:1100});await navigate(page,'home');await page.screenshot({path:path.join(__dirname,'artifacts/desktop.png'),fullPage:true});await navigate(page,'hero');assert.equal(await page.locator('[data-field="skills.Combat.current"]').isVisible(),true);await page.screenshot({path:path.join(__dirname,'artifacts/saisies-desktop.png'),fullPage:true});assert.deepEqual(errors,[]);assert.ok(!/Fatal error|Uncaught/.test(serverLog));
  });
+ await check('Suppression SweetAlert : annulation, confirmation, prénom conservé et nouvelle aventure',async()=>{
+  await navigate(page,'backup');const before=await current(page);await page.locator('[data-action="delete-adventure"]').click();await page.locator('.swal2-cancel').click();assert.equal((await current(page)).version,before.version);
+  await page.locator('[data-action="delete-adventure"]').click();await page.locator('.swal2-confirm').click();await page.locator('.swal2-container').waitFor({state:'hidden'});await page.locator('#creation-form').waitFor();const reset=await current(page);assert.equal(reset.name,'Camille');assert.equal(reset.state,null);
+  const stale=await fetch(url+'/api.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'save',id:before.id,version:before.version,state:before.state})});assert.equal(stale.status,409);
+  await page.setViewportSize({width:390,height:844});await page.locator('#creation-form [name="profession"]').selectOption('Mage');await page.locator('#creation-form [name="book"]').selectOption('6');await page.locator('#creation-form .primary').click();await page.locator('[data-action="reroll-character"]').click();assert.equal((await current(page)).state,null);await page.screenshot({path:path.join(__dirname,'artifacts/creation-iphone.png'),fullPage:true});await page.locator('[data-action="finalize-character"]').click();await page.locator('.swal2-popup').waitFor({state:'visible'});await page.waitForTimeout(300);await page.screenshot({path:path.join(__dirname,'artifacts/confirmation-iphone.png')});await page.locator('.swal2-cancel').click();assert.equal((await current(page)).state,null);await page.locator('[data-action="finalize-character"]').click();await page.locator('.swal2-confirm').click();await page.locator('.swal2-container').waitFor({state:'hidden'});const next=await current(page);assert.equal(next.state.hero.profession,'Mage');assert.equal(next.state.hero.rank,6);assert.equal(next.state.hero.stamina,27);assert.equal(next.state.gold,0);assert.equal(next.state.inventory[0].name,'Boucle d’oreille en platine');assert.notEqual(next.state.adventure.id,before.state.adventure.id);
+ });
+ assert.deepEqual(errors,[]);
  console.log(`\n${checks} scénarios réussis. Base de test isolée.`);
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(async()=>{if(browser)await browser.close();if(server)server.kill();if(tmp)await fs.rm(tmp,{recursive:true,force:true});});

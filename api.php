@@ -3,6 +3,7 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
+require __DIR__ . '/lib/adventure.php';
 
 function reply(array $data, int $status = 200): never {
     http_response_code($status);
@@ -114,10 +115,22 @@ try {
     if ($action === 'save') {
         validateState($body['state'] ?? null);
         if (!is_int($body['version'] ?? null)) reply(['error' => 'Version manquante.'], 422);
+        $previousQuery = $db->prepare('SELECT state, version FROM profiles WHERE id = ?');
+        $previousQuery->execute([$body['id'] ?? '']);
+        $previous = $previousQuery->fetch(PDO::FETCH_ASSOC);
+        if (!$previous || (int)$previous['version'] !== $body['version']) reply(['error'=>'Ce profil a changé sur un autre appareil. Choisissez la sauvegarde à conserver.'], 409);
+        validateAdventure($body['state'], $previous['state'] === null ? null : json_decode($previous['state'], true, 64, JSON_THROW_ON_ERROR));
         $query = $db->prepare('UPDATE profiles SET state = ?, version = version + 1, updated_at = ? WHERE id = ? AND version = ?');
         $query->execute([json_encode($body['state'], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), $now, $body['id'] ?? '', $body['version']]);
         if ($query->rowCount() !== 1) reply(['error' => 'Ce profil a changé sur un autre appareil. Choisissez la sauvegarde à conserver.'], 409);
         reply(['version' => $body['version'] + 1, 'updated_at' => $now]);
+    }
+    if ($action === 'reset') {
+        if (($body['confirmation'] ?? '') !== 'SUPPRIMER' || !is_int($body['version'] ?? null)) reply(['error'=>'Confirmation de suppression requise.'], 422);
+        $query = $db->prepare('UPDATE profiles SET state = NULL, version = version + 1, updated_at = ? WHERE id = ? AND version = ?');
+        $query->execute([$now, $body['id'] ?? '', $body['version']]);
+        if ($query->rowCount() !== 1) reply(['error'=>'Ce profil a changé. Rechargez le carnet avant de supprimer l’aventure.'], 409);
+        reply(['version'=>$body['version'] + 1, 'updated_at'=>$now]);
     }
     reply(['error' => 'Action inconnue.'], 400);
 } catch (JsonException $e) {

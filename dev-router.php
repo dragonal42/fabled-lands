@@ -6,7 +6,7 @@ if ($path === '/' || $path === '/index.php') { require __DIR__ . '/index.php'; r
 if ($path === '/api.php') { require __DIR__ . '/api.php'; return true; }
 $file = realpath(__DIR__ . $path);
 if ($path === '/manifest.webmanifest') return false;
-if (str_starts_with($path, '/assets/') && $file && str_starts_with($file, __DIR__ . '/assets/') && is_file($file) && preg_match('/\.(css|js|svg|png|jpg|jpeg|webp)$/i', $file)) return false;
+if (str_starts_with($path, '/assets/') && $file && str_starts_with($file, __DIR__ . '/assets/') && is_file($file) && preg_match('/\.(css|js|json|svg|png|jpg|jpeg|webp)$/i', $file)) return false;
 http_response_code(404);
 echo 'Introuvable';
 return true;

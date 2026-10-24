@@ -1,0 +1,967 @@
+{
+  "id": "jafl-original",
+  "source": "https://github.com/volpe-jb/JavaFabledLands/tree/cd56331da0433c8f1d60e39608614e2fc199d662",
+  "sourceRevision": "cd56331da0433c8f1d60e39608614e2fc199d662",
+  "books": {
+    "1": {
+      "rank": 1,
+      "stamina": 9,
+      "gold": 16,
+      "professions": {
+        "Prêtre": {
+          "skills": [
+            4,
+            2,
+            3,
+            6,
+            4,
+            2
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Masse",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Mage": {
+          "skills": [
+            2,
+            2,
+            6,
+            1,
+            5,
+            3
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Bâton",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Voleur": {
+          "skills": [
+            5,
+            4,
+            4,
+            1,
+            2,
+            6
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Troubadour": {
+          "skills": [
+            6,
+            3,
+            4,
+            3,
+            2,
+            4
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Guerrier": {
+          "skills": [
+            3,
+            6,
+            2,
+            4,
+            3,
+            2
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Hache de guerre",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Explorateur": {
+          "skills": [
+            2,
+            5,
+            2,
+            3,
+            6,
+            4
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Lance",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        }
+      }
+    },
+    "2": {
+      "rank": 2,
+      "stamina": 13,
+      "gold": 16,
+      "professions": {
+        "Prêtre": {
+          "skills": [
+            4,
+            2,
+            3,
+            6,
+            4,
+            2
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Masse",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Mage": {
+          "skills": [
+            2,
+            2,
+            6,
+            1,
+            5,
+            3
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Bâton",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Voleur": {
+          "skills": [
+            5,
+            4,
+            4,
+            1,
+            2,
+            6
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Troubadour": {
+          "skills": [
+            6,
+            3,
+            4,
+            3,
+            2,
+            4
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Guerrier": {
+          "skills": [
+            3,
+            6,
+            2,
+            4,
+            3,
+            2
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Hache de guerre",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Explorateur": {
+          "skills": [
+            2,
+            5,
+            2,
+            3,
+            6,
+            4
+          ],
+          "armour": 1,
+          "inventory": [
+            {
+              "name": "Armure de cuir",
+              "quantity": 1,
+              "notes": "Défense +1"
+            },
+            {
+              "name": "Lance",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        }
+      }
+    },
+    "3": {
+      "rank": 3,
+      "stamina": 16,
+      "gold": 40,
+      "professions": {
+        "Prêtre": {
+          "skills": [
+            5,
+            3,
+            4,
+            7,
+            5,
+            2
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Mage": {
+          "skills": [
+            3,
+            3,
+            7,
+            1,
+            6,
+            4
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Voleur": {
+          "skills": [
+            6,
+            5,
+            5,
+            2,
+            3,
+            7
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Troubadour": {
+          "skills": [
+            7,
+            4,
+            5,
+            4,
+            3,
+            5
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Guerrier": {
+          "skills": [
+            4,
+            7,
+            2,
+            5,
+            4,
+            3
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Explorateur": {
+          "skills": [
+            3,
+            6,
+            3,
+            4,
+            7,
+            5
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        }
+      }
+    },
+    "4": {
+      "rank": 4,
+      "stamina": 20,
+      "gold": 65,
+      "professions": {
+        "Prêtre": {
+          "skills": [
+            5,
+            3,
+            4,
+            7,
+            5,
+            2
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Lance",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Mage": {
+          "skills": [
+            3,
+            3,
+            7,
+            1,
+            6,
+            4
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Bâton",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Voleur": {
+          "skills": [
+            6,
+            5,
+            5,
+            2,
+            3,
+            7
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Troubadour": {
+          "skills": [
+            7,
+            4,
+            5,
+            4,
+            3,
+            5
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Guerrier": {
+          "skills": [
+            4,
+            7,
+            2,
+            5,
+            4,
+            3
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Explorateur": {
+          "skills": [
+            3,
+            6,
+            3,
+            4,
+            7,
+            5
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            },
+            {
+              "name": "Carte",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        }
+      }
+    },
+    "5": {
+      "rank": 5,
+      "stamina": 23,
+      "gold": 65,
+      "professions": {
+        "Prêtre": {
+          "skills": [
+            6,
+            4,
+            5,
+            8,
+            6,
+            2
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Masse",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Mage": {
+          "skills": [
+            4,
+            4,
+            8,
+            1,
+            7,
+            5
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Cimeterre",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Voleur": {
+          "skills": [
+            7,
+            6,
+            6,
+            2,
+            4,
+            8
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Dague",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Troubadour": {
+          "skills": [
+            8,
+            5,
+            5,
+            5,
+            4,
+            6
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Bâton de combat",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Guerrier": {
+          "skills": [
+            5,
+            8,
+            3,
+            6,
+            5,
+            3
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Épée",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Explorateur": {
+          "skills": [
+            4,
+            7,
+            4,
+            4,
+            8,
+            6
+          ],
+          "armour": 3,
+          "inventory": [
+            {
+              "name": "Cotte de mailles",
+              "quantity": 1,
+              "notes": "Défense +3"
+            },
+            {
+              "name": "Hache",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        }
+      }
+    },
+    "6": {
+      "rank": 6,
+      "stamina": 27,
+      "gold": 0,
+      "professions": {
+        "Prêtre": {
+          "skills": [
+            6,
+            4,
+            5,
+            8,
+            6,
+            2
+          ],
+          "armour": 0,
+          "inventory": [
+            {
+              "name": "Boucle d’oreille en platine",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Mage": {
+          "skills": [
+            4,
+            4,
+            8,
+            1,
+            7,
+            5
+          ],
+          "armour": 0,
+          "inventory": [
+            {
+              "name": "Boucle d’oreille en platine",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Voleur": {
+          "skills": [
+            7,
+            6,
+            6,
+            2,
+            4,
+            8
+          ],
+          "armour": 0,
+          "inventory": [
+            {
+              "name": "Boucle d’oreille en platine",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Troubadour": {
+          "skills": [
+            8,
+            5,
+            5,
+            5,
+            4,
+            6
+          ],
+          "armour": 0,
+          "inventory": [
+            {
+              "name": "Boucle d’oreille en platine",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Guerrier": {
+          "skills": [
+            5,
+            8,
+            3,
+            6,
+            5,
+            3
+          ],
+          "armour": 0,
+          "inventory": [
+            {
+              "name": "Boucle d’oreille en platine",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        },
+        "Explorateur": {
+          "skills": [
+            4,
+            7,
+            4,
+            4,
+            8,
+            6
+          ],
+          "armour": 0,
+          "inventory": [
+            {
+              "name": "Boucle d’oreille en platine",
+              "quantity": 1,
+              "notes": ""
+            }
+          ]
+        }
+      }
+    }
+  }
+}
