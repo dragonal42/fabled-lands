@@ -11,9 +11,9 @@
     "id": "book-1",
     "book": 1,
     "title": "Sokara",
-    "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book1/Sokara.JPG",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book1/Sokara.JPG",
-    "language": "en"
+    "image": "assets/maps/sokara-fr.jpg",
+    "language": "fr",
+    "credit": "Carte française du tome 1 fournie pour ce carnet"
   },
   {
     "id": "book-2",
