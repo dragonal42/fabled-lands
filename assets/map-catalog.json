@@ -19,9 +19,9 @@
     "id": "book-2",
     "book": 2,
     "title": "Golnir",
-    "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book2/Golnir.JPG",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book2/Golnir.JPG",
-    "language": "en"
+    "image": "assets/maps/golnir-fr.jpg",
+    "language": "fr",
+    "credit": "Carte française du tome 2 fournie pour ce carnet"
   },
   {
     "id": "book-3",
