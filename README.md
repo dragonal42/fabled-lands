@@ -118,4 +118,4 @@ Les textes courants et les champs sont affichés en 16 à 17 px, avec des libell
 
 ### Présentation des cartes
 
-La carte du monde et celle du Sokara proposent un choix **Couleur / Noir et blanc**, dans la bibliothèque et dans la visionneuse. Les deux versions originales fournies sont conservées sans recompression. Le choix est mémorisé par profil et par carte sur cet appareil, sans modifier la sauvegarde du personnage. Les deux présentations de ces cartes sont disponibles hors connexion après la préparation du cache de l’application.
+La carte du monde et les cartes des tomes 1 à 4 proposent un choix **Couleur / Noir et blanc**, dans la bibliothèque et dans la visionneuse. Les deux versions originales fournies sont conservées sans recompression. Le choix est mémorisé par profil et par carte sur cet appareil, sans modifier la sauvegarde du personnage. Les deux présentations de ces cartes sont disponibles hors connexion après la préparation du cache de l’application.

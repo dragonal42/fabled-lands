@@ -45,7 +45,19 @@
     "title": "Golnir",
     "image": "assets/maps/golnir-fr.jpg?v=20261024-hd",
     "language": "fr",
-    "credit": "Carte française du tome 2 fournie pour ce carnet"
+    "credit": "Carte française du tome 2 fournie pour ce carnet",
+    "variants": [
+      {
+        "id": "color",
+        "label": "Couleur",
+        "image": "assets/maps/golnir-fr-couleur.jpg"
+      },
+      {
+        "id": "bw",
+        "label": "Noir et blanc",
+        "image": "assets/maps/golnir-fr.jpg?v=20261024-hd"
+      }
+    ]
   },
   {
     "id": "book-3",
@@ -53,7 +65,19 @@
     "title": "L’océan Violet",
     "image": "assets/maps/ocean-violet-fr.jpg",
     "language": "fr",
-    "credit": "Carte française du tome 3 fournie pour ce carnet"
+    "credit": "Carte française du tome 3 fournie pour ce carnet",
+    "variants": [
+      {
+        "id": "color",
+        "label": "Couleur",
+        "image": "assets/maps/ocean-violet-fr-couleur.jpg"
+      },
+      {
+        "id": "bw",
+        "label": "Noir et blanc",
+        "image": "assets/maps/ocean-violet-fr.jpg"
+      }
+    ]
   },
   {
     "id": "book-4",
@@ -61,7 +85,19 @@
     "title": "Les Grandes Steppes",
     "image": "assets/maps/grandes-steppes-fr.jpg",
     "language": "fr",
-    "credit": "Carte française du tome 4 fournie pour ce carnet"
+    "credit": "Carte française du tome 4 fournie pour ce carnet",
+    "variants": [
+      {
+        "id": "color",
+        "label": "Couleur",
+        "image": "assets/maps/grandes-steppes-fr-couleur.jpg"
+      },
+      {
+        "id": "bw",
+        "label": "Noir et blanc",
+        "image": "assets/maps/grandes-steppes-fr.jpg"
+      }
+    ]
   },
   {
     "id": "book-5",
