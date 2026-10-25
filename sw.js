@@ -1,13 +1,13 @@
 'use strict';
-// Cache only public application files. Profiles and writes always use the API.
+// Cache application assets and photo images; never profile JSON or writes.
 const CACHE_PREFIX = 'terres-fabuleuses-shell-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + '20261025-parcours-v7';
+const CACHE = CACHE_PREFIX + '20261025-tampons-v8';
 const BASE = new URL('./', self.location.href);
 const SHELL = [
   './', 'index.php', 'manifest.webmanifest?v=20261024',
-  'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261025-parcours',
-  'assets/app.js?v=20261025-parcours', 'assets/adventure.js?v=20261025-parcours', 'assets/rules.js?v=20261025-regions', 'assets/map-viewer.js?v=20261025-parcours',
-  'assets/game-data.js?v=20261025-codes', 'assets/install.js', 'assets/creation-rules.json',
+  'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261025-tampons',
+  'assets/app.js?v=20261025-tampons', 'assets/adventure.js?v=20261025-tampons', 'assets/rules.js?v=20261025-regions', 'assets/map-viewer.js?v=20261025-tampons',
+  'assets/game-data.js?v=20261025-codes', 'assets/install.js', 'assets/photos.js', 'assets/stamps.js', 'assets/creation-rules.json',
   'assets/map-catalog.json', 'assets/maps/monde-fr.jpg', 'assets/maps/sokara-fr.jpg?v=20261024-hd',
   'assets/maps/golnir-fr.jpg?v=20261024-hd', 'assets/maps/ocean-violet-fr.jpg', 'assets/maps/grandes-steppes-fr.jpg',
   'assets/maps/golnir-fr-couleur.jpg', 'assets/maps/ocean-violet-fr-couleur.jpg', 'assets/maps/grandes-steppes-fr-couleur.jpg',
@@ -32,14 +32,15 @@ self.addEventListener('fetch', event => {
   if (request.method !== 'GET' || url.origin !== BASE.origin) return;
   const relative = url.pathname.slice(BASE.pathname.length);
   const navigation = url.pathname.startsWith(BASE.pathname) && request.mode === 'navigate' && (relative === '' || relative === 'index.php');
+  const photo = url.pathname === new URL('getApi.php',BASE).pathname && /^[a-f0-9]{32}$/.test(url.searchParams.get('photo')||'') && /^[a-f0-9]{32}$/.test(url.searchParams.get('owner')||'');
   const asset = url.pathname.startsWith(BASE.pathname) &&
     (/^assets\/.+\.(css|js|json|svg|png|jpg|jpeg|webp|ico)$/.test(relative) || relative === 'manifest.webmanifest');
-  if (!navigation && !asset) return;
+  if (!navigation && !asset && !photo) return;
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
     try {
       const response = await fetch(request);
-      if (response.ok) {
+      if (response.ok && (!photo || response.headers.get('Content-Type')?.startsWith('image/'))) {
         // A full device cache must never prevent a successful online request.
         try { await cache.put(request, response.clone()); } catch {}
       }
