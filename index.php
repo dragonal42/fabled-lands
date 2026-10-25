@@ -30,7 +30,7 @@ header('X-Content-Type-Options: nosniff');
   <script src="assets/photos.js" defer></script>
   <script src="assets/stamps.js" defer></script>
   <script src="assets/map-viewer.js?v=20261025-accueil" defer></script>
-  <script src="assets/app.js?v=20261025-accueil" defer></script>
+  <script src="assets/app.js?v=20261025-journal" defer></script>
   <script src="assets/install.js" defer></script>
 </head>
 <body>

@@ -1,12 +1,12 @@
 'use strict';
 // Cache application assets and photo images; never profile JSON or writes.
 const CACHE_PREFIX = 'terres-fabuleuses-shell-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + '20261025-accueil-v10';
+const CACHE = CACHE_PREFIX + '20261025-journal-v11';
 const BASE = new URL('./', self.location.href);
 const SHELL = [
   './', 'index.php', 'manifest.webmanifest?v=20261024',
   'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261025-accueil',
-  'assets/app.js?v=20261025-accueil', 'assets/adventure.js?v=20261025-accueil', 'assets/rules.js?v=20261025-regions', 'assets/map-viewer.js?v=20261025-accueil',
+  'assets/app.js?v=20261025-journal', 'assets/adventure.js?v=20261025-accueil', 'assets/rules.js?v=20261025-regions', 'assets/map-viewer.js?v=20261025-accueil',
   'assets/game-data.js?v=20261025-codes', 'assets/install.js', 'assets/photos.js', 'assets/stamps.js', 'assets/creation-rules.json',
   'assets/map-catalog.json', 'assets/maps/monde-fr.jpg', 'assets/maps/sokara-fr.jpg?v=20261024-hd',
   'assets/maps/golnir-fr.jpg?v=20261024-hd', 'assets/maps/ocean-violet-fr.jpg', 'assets/maps/grandes-steppes-fr.jpg',
