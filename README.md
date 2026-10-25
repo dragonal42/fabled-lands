@@ -124,7 +124,7 @@ Les cartes françaises en couleur d’Uttaku (tome 5, 853 × 1280 pixels) et d�
 
 La visionneuse occupe toute la hauteur disponible. Son en-tête et son bouton de fermeture restent visibles pendant les déplacements de la carte. Le bouton à pictogramme bascule entre couleur et noir et blanc ; l’aide tactile est en petits caractères italiques. La sélection de texte est désactivée hors des champs de saisie.
 
-Le bandeau du carnet d’exploration affiche le livre et le paragraphe du marque-page, avec une phrase d’ambiance propre aux tomes 1 à 7. Les codes acquis apparaissent avant les autres, chaque groupe étant trié alphabétiquement en français, y compris pendant une recherche. Les 27 codes du tome 6 étaient déjà présents ; les 75 codes du tome 7 ont été ajoutés depuis les images fournies (voir `docs/codes-tomes6-7.md`).
+Le marque-page affiche le livre et le paragraphe courants ; le bandeau du carnet d’exploration conserve une phrase d’ambiance propre aux tomes 1 à 7. Les codes acquis apparaissent avant les autres, chaque groupe étant trié alphabétiquement en français, y compris pendant une recherche. Les 27 codes du tome 6 étaient déjà présents ; les 75 codes du tome 7 ont été ajoutés depuis les images fournies (voir `docs/codes-tomes6-7.md`).
 
 ### Parcours de lecture
 
@@ -136,4 +136,8 @@ Le journal conserve la succession des livres et paragraphes confirmés avec « R
 
 Le bouton ⚑ de la visionneuse ouvre les tampons : crâne, coffre, boutique, repas, maison, symboles de sanctuaire, quatre flèches, arc, épées, blason et chiffres 0 à 9. Choisir un tampon puis toucher l’image pour le poser. Faire glisser un tampon pour le déplacer ; le sélectionner puis « Supprimer le tampon sélectionné » pour le retirer. Le mode main permet de parcourir la carte. Les coordonnées sont relatives à chaque carte, indépendantes du zoom, et les marques restent propres au profil et à l’aventure, y compris lors d’un changement couleur/noir et blanc. Les photos consultées peuvent être rouvertes hors connexion après leur mise en cache ; un nouvel import demande une connexion.
 
-Le carnet d’exploration affiche, à côté de la position de lecture, les cases du paragraphe courant présentes dans le livret. Les cases de passage et celles d’un suivi particulier (par exemple « chez vous ») restent distinctes. Leurs coches sont communes à l’accueil et à « Cases de section » ; elles sont conservées lors des changements de paragraphe et dans les sauvegardes. Un paragraphe sans cases ne présente aucun contrôle supplémentaire.
+Le marque-page affiche, à côté de la position de lecture, les cases du paragraphe courant présentes dans le livret. Les cases de passage et celles d’un suivi particulier (par exemple « chez vous ») restent distinctes. Leurs coches sont communes à l’accueil et à « Cases de section » ; elles sont conservées lors des changements de paragraphe et dans les sauvegardes. Un paragraphe sans cases ne présente aucun contrôle supplémentaire.
+
+### Accueil et événements
+
+Le marque-page regroupe la position et les cases du paragraphe courant, directement sous le carnet d’exploration. Fermer sa popup après validation ou annulation ramène à ce panneau avec l’ancre `#home/marque-page`. La position n’est plus répétée dans le bandeau ni dans le résumé du personnage. Sous les quêtes en cours, deux boutons lancent 1D6 ou 2D6 sans bonus pour les événements ; les résultats sont conservés dans l’historique des dés.

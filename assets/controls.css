@@ -136,3 +136,18 @@ input,textarea,[contenteditable="true"]{-webkit-user-select:text;user-select:tex
  .hero-banner .reading-location:has(.current-section-checks) .reading-position{min-width:110px;flex:1 1 0}
  .current-section-checks{flex:0 1 auto;max-width:144px;gap:3px}
 }
+
+/* One reading position, directly below the exploration banner. */
+#marque-page{scroll-margin-top:12px}
+#marque-page:focus-visible{outline:3px solid #b38a4690;outline-offset:3px}
+.bookmark-location{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:10px 0 16px}
+.reading-panel .bookmark{justify-content:flex-start;gap:22px;margin:0}
+.reading-panel .current-section-checks{color:var(--ink);max-width:none}
+.reading-panel .current-section-checks input{accent-color:var(--green)}
+.dashboard-grid{grid-template-areas:"hero quests" "explore events"}
+.hero-panel{grid-area:hero}.quests-panel{grid-area:quests}.event-dice-panel{grid-area:events}.explore-panel{grid-area:explore}
+.event-dice-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.event-dice-actions button{flex:1;min-height:48px}
+.event-dice-panel .dice-result{margin-top:12px;min-height:95px}
+.event-dice-panel .dice-result>span,.event-dice-panel .dice-result>small{overflow-wrap:anywhere}
+@media(max-width:900px){.dashboard-grid{grid-template-columns:1fr;grid-template-areas:"hero" "quests" "events" "explore"}}
