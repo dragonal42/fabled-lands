@@ -22,13 +22,13 @@ header('X-Content-Type-Options: nosniff');
   <link rel="manifest" href="manifest.webmanifest?v=20261024">
   <link rel="stylesheet" href="assets/style.css?v=20261024-lecture">
   <link rel="stylesheet" href="assets/vendor/sweetalert2.min.css">
-  <link rel="stylesheet" href="assets/controls.css?v=20261025-couleurs">
+  <link rel="stylesheet" href="assets/controls.css?v=20261025-lecteur">
   <script src="assets/vendor/sweetalert2.min.js" defer></script>
   <script src="assets/game-data.js" defer></script>
-  <script src="assets/adventure.js?v=20261025-couleurs" defer></script>
+  <script src="assets/adventure.js?v=20261025-lecteur" defer></script>
   <script src="assets/rules.js?v=20261025-regions" defer></script>
-  <script src="assets/map-viewer.js?v=20261025-couleurs" defer></script>
-  <script src="assets/app.js?v=20261025-couleurs" defer></script>
+  <script src="assets/map-viewer.js?v=20261025-lecteur" defer></script>
+  <script src="assets/app.js?v=20261025-lecteur" defer></script>
   <script src="assets/install.js" defer></script>
 </head>
 <body>

@@ -13,6 +13,11 @@ const root=path.resolve(__dirname,'..');
 const url='http://127.0.0.1:8089';
 let tmp,server,browser,checks=0;
 async function check(name,fn){await fn();checks++;console.log('PASS',name);}
+async function chooseMapEdition(page,id,mode,scope='.french-library'){
+ const button=page.locator(`${scope} [data-map-edition="${id}"]`);
+ if(await button.getAttribute('value')!==mode)await button.click();
+ assert.equal(await button.getAttribute('value'),mode);
+}
 async function navigate(page,name){await page.evaluate(v=>{location.hash=v;},name);await page.waitForTimeout(60);}
 async function settled(page){await page.waitForFunction(()=>{const n=document.querySelector('[data-sync]');return n&&n.textContent==='Sauvegardé';});}
 async function add(page,key,values){await page.locator(`[data-action="add:${key}"]`).first().click();await fillDialog(page,values);}
@@ -152,19 +157,19 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
  await check('Bibliothèque : huit cartes, cartes françaises locales et import personnel conservé',async()=>{
   await navigate(page,'maps');assert.equal(await page.locator('[data-catalog-map]').count(),8);
   const expected=[['world','monde-fr.jpg',1280,795],['book-1','sokara-fr.jpg?v=20261024-hd',1000,1197],['book-2','golnir-fr.jpg?v=20261024-hd',1060,1280],['book-3','ocean-violet-fr.jpg',977,1280],['book-4','grandes-steppes-fr.jpg',946,1280],['book-5','uttaku-fr-couleur.jpg',853,1280],['book-7','ankon-konu-fr-couleur.jpg',1280,905]];
-  for(const [id,file,width,height]of expected){if(['world','book-1','book-2','book-3','book-4'].includes(id))await page.locator(`.french-library [data-map-edition="${id}"]`).selectOption('bw');await page.locator(`[data-catalog-map="${id}"]`).click();const image=page.locator('.map-viewer img');assert.equal(await image.getAttribute('src'),'assets/maps/'+file);await image.evaluate(img=>img.decode());assert.equal(await image.evaluate(img=>img.naturalWidth),width);assert.equal(await image.evaluate(img=>img.naturalHeight),height);await page.locator('[data-close]').click();}
+  for(const [id,file,width,height]of expected){if(['world','book-1','book-2','book-3','book-4'].includes(id))await chooseMapEdition(page,id,'bw');await page.locator(`[data-catalog-map="${id}"]`).click();const image=page.locator('.map-viewer img');assert.equal(await image.getAttribute('src'),'assets/maps/'+file);await image.evaluate(img=>img.decode());assert.equal(await image.evaluate(img=>img.naturalWidth),width);assert.equal(await image.evaluate(img=>img.naturalHeight),height);await page.locator('[data-close]').click();}
   assert.equal(await page.locator('.french-library [data-catalog-map]').count(),7);assert.equal(await page.locator('.map-library:not(.french-library) [data-catalog-map]').count(),1);assert.equal(await page.locator('[data-map]').count(),1);
  });
  await check('Cartes couleur et noir et blanc : choix par carte, persistance et accès hors ligne',async()=>{
   const before=await current(page);
   await page.evaluate(()=>{for(const id of ['world','book-1','book-2','book-3','book-4'])local.remove(mapPreferenceKey(mapCatalog.find(row=>row.id===id)));});await navigate(page,'home');await navigate(page,'maps');
   for(const [id,file,width,height]of [['world','monde-fr-couleur.jpg',1280,853],['book-1','sokara-fr-couleur.jpg',1069,1280],['book-2','golnir-fr-couleur.jpg',1060,1280],['book-3','ocean-violet-fr-couleur.jpg',977,1280],['book-4','grandes-steppes-fr-couleur.jpg',947,1280]]){
-   const selector=page.locator(`.french-library [data-map-edition="${id}"]`);assert.equal(await selector.inputValue(),'color');await page.locator(`[data-catalog-map="${id}"]`).click();const image=page.locator('.map-viewer img');await image.evaluate(img=>img.decode());assert.equal(await image.getAttribute('src'),'assets/maps/'+file);assert.deepEqual(await image.evaluate(img=>[img.naturalWidth,img.naturalHeight]),[width,height]);
-   await page.locator('[data-map-zoom="in"]').click();await page.locator(`#modal [data-map-edition="${id}"]`).selectOption('bw');await image.evaluate(img=>img.decode());assert.equal(await page.locator('[data-map-scale]').textContent(),'100 %');assert.equal(await selector.inputValue(),'bw');await page.locator('[data-close]').click();await page.waitForFunction(()=>!document.documentElement.classList.contains('map-open'));
+   const selector=page.locator(`.french-library [data-map-edition="${id}"]`);assert.equal(await selector.getAttribute('value'),'color');await page.locator(`[data-catalog-map="${id}"]`).click();const image=page.locator('.map-viewer img');await image.evaluate(img=>img.decode());assert.equal(await image.getAttribute('src'),'assets/maps/'+file);assert.deepEqual(await image.evaluate(img=>[img.naturalWidth,img.naturalHeight]),[width,height]);
+   await page.locator('[data-map-zoom="in"]').click();await chooseMapEdition(page,id,'bw','#modal');await image.evaluate(img=>img.decode());assert.equal(await page.locator('[data-map-scale]').textContent(),'100 %');assert.equal(await selector.getAttribute('value'),'bw');await page.locator('[data-close]').click();await page.waitForFunction(()=>!document.documentElement.classList.contains('map-open'));
   }
-  await page.reload();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();await navigate(page,'home');await navigate(page,'maps');for(const id of ['world','book-1','book-2','book-3','book-4'])assert.equal(await page.locator(`.french-library [data-map-edition="${id}"]`).inputValue(),'bw');
+  await page.reload();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();await navigate(page,'home');await navigate(page,'maps');for(const id of ['world','book-1','book-2','book-3','book-4'])assert.equal(await page.locator(`.french-library [data-map-edition="${id}"]`).getAttribute('value'),'bw');
   await context.setOffline(true);
-  for(const id of ['world','book-1','book-2','book-3','book-4']){await page.locator(`.french-library [data-map-edition="${id}"]`).selectOption('color');await page.locator(`[data-catalog-map="${id}"]`).click();await page.locator('.map-viewer img').evaluate(img=>img.decode());await page.locator(`#modal [data-map-edition="${id}"]`).selectOption('bw');await page.locator('.map-viewer img').evaluate(img=>img.decode());await page.locator('[data-close]').click();await page.waitForFunction(()=>!document.documentElement.classList.contains('map-open'));}
+  for(const id of ['world','book-1','book-2','book-3','book-4']){await chooseMapEdition(page,id,'color');await page.locator(`[data-catalog-map="${id}"]`).click();await page.locator('.map-viewer img').evaluate(img=>img.decode());await chooseMapEdition(page,id,'bw','#modal');await page.locator('.map-viewer img').evaluate(img=>img.decode());await page.locator('[data-close]').click();await page.waitForFunction(()=>!document.documentElement.classList.contains('map-open'));}
   await context.setOffline(false);assert.deepEqual((await current(page)).state,before.state);assert.equal(await page.locator('[data-map]').count(),1);
  });
  await check('Uttaku et Ankon-Konu : cartes locales hors ligne, Akatsuraï conservée au tome 6',async()=>{
@@ -173,10 +178,16 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
   for(const [id,width,height]of [['book-5',853,1280],['book-7',1280,905]]){await page.locator(`[data-catalog-map="${id}"]`).click();const image=page.locator('.map-viewer img');await image.evaluate(img=>img.decode());assert.deepEqual(await image.evaluate(img=>[img.naturalWidth,img.naturalHeight]),[width,height]);await page.locator('[data-close]').click();await page.waitForFunction(()=>!document.documentElement.classList.contains('map-open'));}
   await context.setOffline(false);
  });
- await check('Cartes : pincement et déplacement isolés, boutons et retour à la vue entière',async()=>{
+ await check('Cartes : gestes isolés, bascule compacte et en-tête fixe sur toute la hauteur',async()=>{
   await navigate(page,'maps');await page.locator('[data-catalog-map="book-1"]').click();const viewer=page.locator('.map-viewer');await viewer.locator('img').evaluate(img=>img.decode());
+  assert.equal(await page.locator('#modal select').count(),0);assert.equal(await page.locator('[data-map-zoom="reset"]').count(),0);
+  assert.ok((await page.locator('#modal').boundingBox()).height>=844*.98);
+  const header=await page.locator('#modal .modal-head').boundingBox();assert.ok(header.y>=0&&header.y<30);
+  const help=await page.locator('.map-help').evaluate(el=>({size:parseFloat(getComputedStyle(el).fontSize),style:getComputedStyle(el).fontStyle}));assert.ok(help.size<=12);assert.equal(help.style,'italic');
+  const edition=page.locator('#modal [data-map-edition]');const icon=await edition.textContent();await edition.click();assert.notEqual(await edition.textContent(),icon);await edition.click();
+  assert.equal(await page.locator('body').evaluate(el=>getComputedStyle(el).userSelect),'none');
   const before=await page.evaluate(()=>({scroll:scrollY,scale:visualViewport.scale}));assert.equal(before.scale,1);assert.match(await page.locator('meta[name="viewport"]').getAttribute('content'),/user-scalable=no/);
-  await page.locator('[data-map-zoom="in"]').click();assert.equal(await page.locator('[data-map-scale]').textContent(),'140 %');await page.locator('[data-map-zoom="reset"]').click();assert.equal(await page.locator('[data-map-scale]').textContent(),'100 %');
+  await page.locator('[data-map-zoom="in"]').click();assert.equal(await page.locator('[data-map-scale]').textContent(),'140 %');while(!await page.locator('[data-map-zoom="out"]').isDisabled())await page.locator('[data-map-zoom="out"]').click();assert.equal(await page.locator('[data-map-scale]').textContent(),'100 %');
   const box=await viewer.boundingBox(),x=box.x+box.width/2,y=box.y+100;const cdp=await context.newCDPSession(page);
   const touch=(id,x,y)=>({id,x,y,radiusX:5,radiusY:5});
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[touch(1,x-35,y),touch(2,x+35,y)]});
@@ -185,8 +196,8 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
   assert.ok(parseInt(await page.locator('[data-map-scale]').textContent())>150);assert.equal(await page.evaluate(()=>visualViewport.scale),1);
   const start=await viewer.evaluate(el=>({left:el.scrollLeft,top:el.scrollTop}));
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[touch(1,x,y)]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[touch(1,x-45,y-50)]});await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
-  const end=await viewer.evaluate(el=>({left:el.scrollLeft,top:el.scrollTop}));assert.ok(end.left>start.left||end.top>start.top);assert.equal(await page.evaluate(()=>scrollY),before.scroll);
-  await page.locator('[data-map-zoom="reset"]').click();assert.equal(await page.locator('[data-map-scale]').textContent(),'100 %');assert.equal(await viewer.evaluate(el=>el.scrollLeft+el.scrollTop),0);await cdp.detach();await page.locator('[data-close]').click();await page.waitForFunction(()=>!document.documentElement.classList.contains('map-open'));assert.equal(await page.evaluate(()=>document.documentElement.classList.contains('map-open')),false);
+  const end=await viewer.evaluate(el=>({left:el.scrollLeft,top:el.scrollTop}));assert.ok(end.left>start.left||end.top>start.top);assert.equal(await page.evaluate(()=>scrollY),before.scroll);assert.deepEqual(await page.locator('#modal .modal-head').boundingBox(),header);assert.equal(await page.locator('#modal [data-close]').isVisible(),true);assert.equal(await page.locator('#modal').evaluate(el=>el.scrollTop),0);await page.screenshot({path:path.join(__dirname,'artifacts/carte-plein-ecran-iphone.png')});
+  while(!await page.locator('[data-map-zoom="out"]').isDisabled())await page.locator('[data-map-zoom="out"]').click();assert.equal(await page.locator('[data-map-scale]').textContent(),'100 %');assert.equal(await viewer.evaluate(el=>el.scrollLeft+el.scrollTop),0);await cdp.detach();await page.locator('[data-close]').click();await page.waitForFunction(()=>!document.documentElement.classList.contains('map-open'));assert.equal(await page.evaluate(()=>document.documentElement.classList.contains('map-open')),false);
  });
  await check('Restaurer un autre personnage est refusé sans altérer le carnet courant',async()=>{
   await navigate(page,'backup');const before=await current(page);const changed=structuredClone(before.state);changed.hero.name='Autre personnage';changed.adventure.creation.name='Autre personnage';await page.locator('#import-file').setInputFiles({name:'autre-personnage.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({...exported,state:changed}))});await page.locator('#modal button.primary').click();await page.locator('#modal .form-error').filter({hasText:'définitif'}).waitFor();assert.deepEqual((await current(page)).state,before.state);await page.locator('#modal [data-close]').first().click();await page.reload();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();assert.equal((await current(page)).state.hero.name,'Aëlys');

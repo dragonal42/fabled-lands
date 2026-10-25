@@ -80,3 +80,24 @@ html.map-open,html.map-open body{overflow:hidden;overscroll-behavior:none}
 .map-viewer img{max-width:none;touch-action:none;pointer-events:none;margin:0;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
 
 .map-edition{max-width:300px;margin:12px 0 18px}
+
+/* Compact map reader: only the image scrolls, the header stays visible. */
+body,body *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,[contenteditable="true"]{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+.map-edition-toggle{gap:2px;min-width:48px;padding:4px 8px}
+.map-edition-icon{font-size:22px;line-height:1}
+.map-edition-arrow{font-size:17px;line-height:1}
+.map-dialog[open]{display:flex;flex-direction:column;gap:0;width:min(1100px,100vw);max-width:100vw;height:100vh;height:100dvh;max-height:100dvh;margin:auto;inset:0;padding:max(4px,env(safe-area-inset-top)) 6px max(4px,env(safe-area-inset-bottom));overflow:hidden}
+.map-dialog .modal-head{flex-shrink:0;gap:6px;margin:0;padding:2px 4px 6px;border-bottom:1px solid var(--line)}
+.map-dialog .modal-head h2{font-size:21px;line-height:1.15;margin:0;overflow-wrap:anywhere}
+.map-close{flex-shrink:0;display:grid;place-items:center;width:44px;height:44px;padding:0;border:3px solid #253d38;border-radius:13px 10px 14px 8px;background:#ffda70;color:#253d38;box-shadow:3px 3px 0 #253d38;transform:rotate(3deg);cursor:pointer}
+.map-close span{font-family:var(--sans);font-size:34px;font-weight:900;line-height:1}
+.map-close:hover{background:#ffe79f;transform:rotate(-3deg)}
+.map-close:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #253d38}
+.map-dialog .map-tools{flex-shrink:0;gap:3px;flex-wrap:nowrap;margin:0;padding:4px 2px 0}
+.map-dialog .map-tools button{min-height:44px;min-width:44px;padding:3px 8px}
+.map-dialog .map-tools output{min-width:56px;font-size:14px}
+.map-dialog .map-tools .map-edition-toggle{margin-left:auto}
+.map-dialog .map-help{flex-shrink:0;font-size:11px;font-style:italic;font-weight:400;line-height:1.25;margin:2px 2px 4px;color:#526047}
+.map-dialog .map-viewer{flex:1;min-height:0;height:auto;max-height:none;border-radius:4px}
+@media(max-width:680px){.map-dialog[open]{border-radius:0}.map-dialog .modal-head h2{font-size:19px}}

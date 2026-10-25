@@ -86,18 +86,28 @@ function mapVariant(row){
  return row.variants.find(variant=>variant.id===preferred)||row.variants[0];
 }
 function mapImage(row){return mapVariant(row)?.image||row.image;}
+function mapEditionIcon(row){return `<span class="map-edition-icon" aria-hidden="true">${mapVariant(row).id==='color'?'🎨':'◐'}</span><span class="map-edition-arrow" aria-hidden="true">⇄</span>`;}
+function mapEditionLabel(row){
+ const current=mapVariant(row),next=row.variants[(row.variants.indexOf(current)+1)%row.variants.length];
+ return `${row.title} : ${current.label}. Afficher : ${next.label}`;
+}
 function mapEditionPicker(row){
  if(!row.variants?.length)return '';
- const selected=mapVariant(row);
- return `<label class="field map-edition"><span>Présentation de la carte</span><select data-map-edition="${esc(row.id)}">${row.variants.map(variant=>`<option value="${esc(variant.id)}" ${variant.id===selected.id?'selected':''}>${esc(variant.label)}</option>`).join('')}</select></label>`;
+ const selected=mapVariant(row),label=mapEditionLabel(row);
+ return `<button type="button" class="secondary map-edition-toggle" data-map-edition="${esc(row.id)}" value="${esc(selected.id)}" aria-label="${esc(label)}" title="${esc(label)}" aria-pressed="${selected.id==='color'}">${mapEditionIcon(row)}</button>`;
 }
-document.addEventListener('change',event=>{
- const select=event.target.closest('[data-map-edition]');if(!select)return;
- const row=mapCatalog.find(item=>item.id===select.dataset.mapEdition);
- if(!row?.variants?.some(variant=>variant.id===select.value))return;
- local.set(mapPreferenceKey(row),select.value);
- document.querySelectorAll('[data-map-edition]').forEach(other=>{if(other.dataset.mapEdition===row.id)other.value=select.value;});
- document.querySelectorAll('[data-catalog-map]').forEach(button=>{if(button.dataset.catalogMap===row.id)button.querySelector('img').src=mapImage(row);});
+document.addEventListener('click',event=>{
+ const button=event.target.closest('[data-map-edition]');if(!button)return;
+ const row=mapCatalog.find(item=>item.id===button.dataset.mapEdition);if(!row?.variants?.length)return;
+ const current=mapVariant(row),next=row.variants[(row.variants.indexOf(current)+1)%row.variants.length];
+ local.set(mapPreferenceKey(row),next.id);
+ document.querySelectorAll('[data-map-edition]').forEach(other=>{
+  if(other.dataset.mapEdition!==row.id)return;
+  other.value=mapVariant(row).id;other.innerHTML=mapEditionIcon(row);
+  other.setAttribute('aria-label',mapEditionLabel(row));other.title=mapEditionLabel(row);
+  other.setAttribute('aria-pressed',String(mapVariant(row).id==='color'));
+ });
+ document.querySelectorAll('[data-catalog-map]').forEach(thumbnail=>{if(thumbnail.dataset.catalogMap===row.id)thumbnail.querySelector('img').src=mapImage(row);});
  const viewer=document.querySelector('.map-viewer');
  if(viewer?.dataset.mapId===row.id)viewer.querySelector('img').src=mapImage(row);
 });

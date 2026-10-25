@@ -7,9 +7,10 @@ document.addEventListener('touchmove', event => {
   if (event.touches.length > 1) event.preventDefault();
 }, {passive: false});
 function openAdventureMap(row) {
-  dialog(esc(row.title), `<p class="hint">Écartez deux doigts pour agrandir la carte. Faites-la glisser pour explorer les environs.</p>${mapEditionPicker(row)}<div class="map-tools" role="group" aria-label="Zoom de la carte"><button class="secondary" data-map-zoom="out" aria-label="Réduire la carte">−</button><output aria-live="polite" data-map-scale>100 %</output><button class="secondary" data-map-zoom="in" aria-label="Agrandir la carte">+</button><button class="secondary" data-map-zoom="reset">Vue entière</button></div><div class="map-viewer" data-map-id="${esc(row.id||'')}" tabindex="0" aria-label="Carte déplaçable"><img src="${esc(mapImage(row))}" alt="${esc(row.title)}" draggable="false"></div>`);
+  dialog(esc(row.title), `<div class="map-tools" role="group" aria-label="Affichage de la carte"><button class="secondary" data-map-zoom="out" aria-label="Réduire la carte">−</button><output aria-live="polite" data-map-scale>100 %</output><button class="secondary" data-map-zoom="in" aria-label="Agrandir la carte">+</button>${mapEditionPicker(row)}</div><p class="map-help">Pincez pour zoomer, glissez pour explorer.</p><div class="map-viewer" data-map-id="${esc(row.id||'')}" tabindex="0" aria-label="Carte déplaçable"><img src="${esc(mapImage(row))}" alt="${esc(row.title)}" draggable="false"></div>`);
   const modal = document.querySelector('#modal');
   modal.classList.add('map-dialog');
+  const close=modal.querySelector('[data-close]');close.className='map-close';close.innerHTML='<span aria-hidden="true">×</span>';
   document.documentElement.classList.add('map-open');
   modal.addEventListener('close', () => document.documentElement.classList.remove('map-open'), {once: true});
   const viewer = modal.querySelector('.map-viewer'), image = viewer.querySelector('img');
@@ -37,8 +38,7 @@ function openAdventureMap(row) {
   window.addEventListener('resize', reset);
   modal.addEventListener('close', () => window.removeEventListener('resize', reset), {once: true});
   modal.querySelectorAll('[data-map-zoom]').forEach(button => button.addEventListener('click', () => {
-    if (button.dataset.mapZoom === 'reset') reset();
-    else zoom(scale * (button.dataset.mapZoom === 'in' ? 1.4 : 1 / 1.4));
+    zoom(scale * (button.dataset.mapZoom === 'in' ? 1.4 : 1 / 1.4));
   }));
   function gesture() {
     const [a, b] = [...points.values()];

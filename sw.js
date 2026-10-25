@@ -1,12 +1,12 @@
 'use strict';
 // Cache only public application files. Profiles and writes always use the API.
 const CACHE_PREFIX = 'terres-fabuleuses-shell-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + '20261025-couleurs-v4';
+const CACHE = CACHE_PREFIX + '20261025-lecteur-v5';
 const BASE = new URL('./', self.location.href);
 const SHELL = [
   './', 'index.php', 'manifest.webmanifest?v=20261024',
-  'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261025-couleurs',
-  'assets/app.js?v=20261025-couleurs', 'assets/adventure.js?v=20261025-couleurs', 'assets/rules.js?v=20261025-regions', 'assets/map-viewer.js?v=20261025-couleurs',
+  'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261025-lecteur',
+  'assets/app.js?v=20261025-lecteur', 'assets/adventure.js?v=20261025-lecteur', 'assets/rules.js?v=20261025-regions', 'assets/map-viewer.js?v=20261025-lecteur',
   'assets/game-data.js', 'assets/install.js', 'assets/creation-rules.json',
   'assets/map-catalog.json', 'assets/maps/monde-fr.jpg', 'assets/maps/sokara-fr.jpg?v=20261024-hd',
   'assets/maps/golnir-fr.jpg?v=20261024-hd', 'assets/maps/ocean-violet-fr.jpg', 'assets/maps/grandes-steppes-fr.jpg',
