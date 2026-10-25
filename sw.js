@@ -1,12 +1,12 @@
 'use strict';
 // Cache application assets and photo images; never profile JSON or writes.
 const CACHE_PREFIX = 'terres-fabuleuses-shell-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + '20261025-tampons-v8';
+const CACHE = CACHE_PREFIX + '20261025-cases-v9';
 const BASE = new URL('./', self.location.href);
 const SHELL = [
   './', 'index.php', 'manifest.webmanifest?v=20261024',
-  'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261025-tampons',
-  'assets/app.js?v=20261025-tampons', 'assets/adventure.js?v=20261025-tampons', 'assets/rules.js?v=20261025-regions', 'assets/map-viewer.js?v=20261025-tampons',
+  'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261025-cases',
+  'assets/app.js?v=20261025-cases', 'assets/adventure.js?v=20261025-cases', 'assets/rules.js?v=20261025-regions', 'assets/map-viewer.js?v=20261025-cases',
   'assets/game-data.js?v=20261025-codes', 'assets/install.js', 'assets/photos.js', 'assets/stamps.js', 'assets/creation-rules.json',
   'assets/map-catalog.json', 'assets/maps/monde-fr.jpg', 'assets/maps/sokara-fr.jpg?v=20261024-hd',
   'assets/maps/golnir-fr.jpg?v=20261024-hd', 'assets/maps/ocean-violet-fr.jpg', 'assets/maps/grandes-steppes-fr.jpg',
