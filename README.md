@@ -115,3 +115,7 @@ Les cartes françaises des tomes 3 et 4 ont été remplacées par les nouvelles 
 Les textes courants et les champs sont affichés en 16 à 17 px, avec des libellés renforcés et un contraste plus marqué. Le zoom de la page est désactivé pour éviter les conflits de gestes. Dans la visionneuse des cartes, le pincement agrandit uniquement l’image ; un doigt la déplace. Les boutons +, − et Vue entière permettent aussi de régler la carte. Les fenêtres de confirmation suivent les mêmes tailles de lecture.
 
 À la création, « Proposer un autre nom » conserve les caractéristiques : le PDF du tome 1 fixe les compétences par profession (page 1), puis le niveau, l’endurance et la bourse de départ (page 2). Aucun tirage aléatoire de ces valeurs n’y est prévu.
+
+### Présentation des cartes
+
+La carte du monde et celle du Sokara proposent un choix **Couleur / Noir et blanc**, dans la bibliothèque et dans la visionneuse. Les deux versions originales fournies sont conservées sans recompression. Le choix est mémorisé par profil et par carte sur cet appareil, sans modifier la sauvegarde du personnage. Les deux présentations de ces cartes sont disponibles hors connexion après la préparation du cache de l’application.

@@ -7,7 +7,7 @@ document.addEventListener('touchmove', event => {
   if (event.touches.length > 1) event.preventDefault();
 }, {passive: false});
 function openAdventureMap(row) {
-  dialog(esc(row.title), `<p class="hint">Écartez deux doigts pour agrandir la carte. Faites-la glisser pour explorer les environs.</p><div class="map-tools" role="group" aria-label="Zoom de la carte"><button class="secondary" data-map-zoom="out" aria-label="Réduire la carte">−</button><output aria-live="polite" data-map-scale>100 %</output><button class="secondary" data-map-zoom="in" aria-label="Agrandir la carte">+</button><button class="secondary" data-map-zoom="reset">Vue entière</button></div><div class="map-viewer" tabindex="0" aria-label="Carte déplaçable"><img src="${esc(row.image)}" alt="${esc(row.title)}" draggable="false"></div>`);
+  dialog(esc(row.title), `<p class="hint">Écartez deux doigts pour agrandir la carte. Faites-la glisser pour explorer les environs.</p>${mapEditionPicker(row)}<div class="map-tools" role="group" aria-label="Zoom de la carte"><button class="secondary" data-map-zoom="out" aria-label="Réduire la carte">−</button><output aria-live="polite" data-map-scale>100 %</output><button class="secondary" data-map-zoom="in" aria-label="Agrandir la carte">+</button><button class="secondary" data-map-zoom="reset">Vue entière</button></div><div class="map-viewer" data-map-id="${esc(row.id||'')}" tabindex="0" aria-label="Carte déplaçable"><img src="${esc(mapImage(row))}" alt="${esc(row.title)}" draggable="false"></div>`);
   const modal = document.querySelector('#modal');
   modal.classList.add('map-dialog');
   document.documentElement.classList.add('map-open');

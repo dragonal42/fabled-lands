@@ -1,14 +1,15 @@
 'use strict';
 // Cache only public application files. Profiles and writes always use the API.
 const CACHE_PREFIX = 'terres-fabuleuses-shell-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + '20261024-cartes-v2';
+const CACHE = CACHE_PREFIX + '20261025-couleurs-v2';
 const BASE = new URL('./', self.location.href);
 const SHELL = [
   './', 'index.php', 'manifest.webmanifest?v=20261024',
-  'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261024-cartes',
-  'assets/app.js?v=20261024-cartes', 'assets/adventure.js?v=20261024-cartes', 'assets/rules.js?v=20261024-cartes', 'assets/map-viewer.js?v=20261024-cartes',
+  'assets/style.css?v=20261024-lecture', 'assets/controls.css?v=20261025-couleurs',
+  'assets/app.js?v=20261025-couleurs', 'assets/adventure.js?v=20261025-couleurs', 'assets/rules.js?v=20261025-couleurs', 'assets/map-viewer.js?v=20261025-couleurs',
   'assets/game-data.js', 'assets/install.js', 'assets/creation-rules.json',
-  'assets/map-catalog.json', 'assets/icon.svg', 'assets/voyage.svg',
+  'assets/map-catalog.json', 'assets/maps/monde-fr.jpg', 'assets/maps/sokara-fr.jpg?v=20261024-hd',
+  'assets/maps/monde-fr-couleur.jpg', 'assets/maps/sokara-fr-couleur.jpg', 'assets/icon.svg', 'assets/voyage.svg',
   'assets/vendor/sweetalert2.min.js', 'assets/vendor/sweetalert2.min.css',
   'assets/icon-192.png', 'assets/icon-512.png', 'assets/icon-maskable-512.png',
   'assets/apple-touch-icon.png?v=20261024', 'assets/favicon-32.png?v=20261024',

@@ -78,3 +78,5 @@ html.map-open,html.map-open body{overflow:hidden;overscroll-behavior:none}
 .map-viewer{height:60vh;height:60dvh;max-height:60dvh;touch-action:none;overscroll-behavior:contain;background:#eeeee2;border-radius:6px;cursor:grab;user-select:none;-webkit-user-select:none}
 .map-viewer:active{cursor:grabbing}
 .map-viewer img{max-width:none;touch-action:none;pointer-events:none;margin:0;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
+
+.map-edition{max-width:300px;margin:12px 0 18px}

@@ -5,7 +5,19 @@
     "title": "Le monde des Terres fabuleuses",
     "image": "assets/maps/monde-fr.jpg",
     "language": "fr",
-    "credit": "Carte française fournie pour ce carnet"
+    "credit": "Carte française fournie pour ce carnet",
+    "variants": [
+      {
+        "id": "color",
+        "label": "Couleur",
+        "image": "assets/maps/monde-fr-couleur.jpg"
+      },
+      {
+        "id": "bw",
+        "label": "Noir et blanc",
+        "image": "assets/maps/monde-fr.jpg"
+      }
+    ]
   },
   {
     "id": "book-1",
@@ -13,7 +25,19 @@
     "title": "Sokara",
     "image": "assets/maps/sokara-fr.jpg?v=20261024-hd",
     "language": "fr",
-    "credit": "Carte française du tome 1 fournie pour ce carnet"
+    "credit": "Carte française du tome 1 fournie pour ce carnet",
+    "variants": [
+      {
+        "id": "color",
+        "label": "Couleur",
+        "image": "assets/maps/sokara-fr-couleur.jpg"
+      },
+      {
+        "id": "bw",
+        "label": "Noir et blanc",
+        "image": "assets/maps/sokara-fr.jpg?v=20261024-hd"
+      }
+    ]
   },
   {
     "id": "book-2",

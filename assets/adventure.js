@@ -79,9 +79,31 @@ async function deleteAdventure(){
  }});
  if(result.isConfirmed){view='home';render();toast('Aventure supprimée. Vous pouvez créer un nouveau personnage.');}
 }
+function mapPreferenceKey(row){return 'fl.map-style.'+(profile?.id||'guest')+'.'+row.id;}
+function mapVariant(row){
+ if(!row.variants?.length)return null;
+ const preferred=local.get(mapPreferenceKey(row));
+ return row.variants.find(variant=>variant.id===preferred)||row.variants[0];
+}
+function mapImage(row){return mapVariant(row)?.image||row.image;}
+function mapEditionPicker(row){
+ if(!row.variants?.length)return '';
+ const selected=mapVariant(row);
+ return `<label class="field map-edition"><span>Présentation de la carte</span><select data-map-edition="${esc(row.id)}">${row.variants.map(variant=>`<option value="${esc(variant.id)}" ${variant.id===selected.id?'selected':''}>${esc(variant.label)}</option>`).join('')}</select></label>`;
+}
+document.addEventListener('change',event=>{
+ const select=event.target.closest('[data-map-edition]');if(!select)return;
+ const row=mapCatalog.find(item=>item.id===select.dataset.mapEdition);
+ if(!row?.variants?.some(variant=>variant.id===select.value))return;
+ local.set(mapPreferenceKey(row),select.value);
+ document.querySelectorAll('[data-map-edition]').forEach(other=>{if(other.dataset.mapEdition===row.id)other.value=select.value;});
+ document.querySelectorAll('[data-catalog-map]').forEach(button=>{if(button.dataset.catalogMap===row.id)button.querySelector('img').src=mapImage(row);});
+ const viewer=document.querySelector('.map-viewer');
+ if(viewer?.dataset.mapId===row.id)viewer.querySelector('img').src=mapImage(row);
+});
 function catalogCard(row){
  const source=row.source?`<a class="text-button" href="${esc(row.source)}" target="_blank" rel="noopener">Source JaFL →</a>`:`<p class="hint">${esc(row.credit||'Version française incluse')}</p>`;
- return `<article class="record"><button class="map-thumbnail" data-catalog-map="${esc(row.id)}" aria-label="Ouvrir ${esc(row.title)}"><img src="${esc(row.image)}" alt="Carte de ${esc(row.title)}" loading="lazy"><span>⤢ Agrandir</span></button><span class="eyebrow">${row.book?'LIVRE '+row.book:'CARTE DU MONDE'} · ${row.language==='fr'?'FRANÇAIS':'ANGLAIS'}</span><h3>${esc(row.title)}</h3>${source}${row.note?`<p class="hint">${esc(row.note)}</p>`:''}</article>`;
+ return `<article class="record"><button class="map-thumbnail" data-catalog-map="${esc(row.id)}" aria-label="Ouvrir ${esc(row.title)}"><img src="${esc(mapImage(row))}" alt="Carte de ${esc(row.title)}" loading="lazy"><span>⤢ Agrandir</span></button><span class="eyebrow">${row.book?'LIVRE '+row.book:'CARTE DU MONDE'} · ${row.language==='fr'?'FRANÇAIS':'ANGLAIS'}</span><h3>${esc(row.title)}</h3>${mapEditionPicker(row)}${source}${row.note?`<p class="hint">${esc(row.note)}</p>`:''}</article>`;
 }
 function catalogView(){
  const french=mapCatalog.filter(row=>row.language==='fr'),english=mapCatalog.filter(row=>row.language!=='fr');
