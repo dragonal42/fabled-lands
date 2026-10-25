@@ -101,3 +101,6 @@ input,textarea,[contenteditable="true"]{-webkit-user-select:text;user-select:tex
 .map-dialog .map-help{flex-shrink:0;font-size:11px;font-style:italic;font-weight:400;line-height:1.25;margin:2px 2px 4px;color:#526047}
 .map-dialog .map-viewer{flex:1;min-height:0;height:auto;max-height:none;border-radius:4px}
 @media(max-width:680px){.map-dialog[open]{border-radius:0}.map-dialog .modal-head h2{font-size:19px}}
+
+.hero-banner .reading-position{display:table;padding:5px 10px;margin:0 0 10px;border:1px solid #d4bd7e80;border-radius:5px;background:#ffffff12;color:#fff1c5;font-size:16px;font-weight:700;line-height:1.5}
+.hero-banner .reading-mood{max-width:540px;margin-bottom:18px;line-height:1.65}

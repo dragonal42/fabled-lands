@@ -10,7 +10,7 @@ Compagnon de lecture en français pour les livres-jeux Fabled Lands, réalisé e
 - Personnage : profession, niveau, endurance, six compétences (initiale, actuelle, bonus/malus et raison), défense calculée sans les bonus de Combat, titres et honneurs.
 - 12 emplacements transportés et possessions stockées par lieu, livre et section.
 - Journal, quêtes terminables et marque-page.
-- 194 codes A à F et 175 entrées de section des six livres, transcrits du livret fourni ; les cases multiples sont indépendantes. Ajout de codes personnalisés.
+- 269 codes A à F et 175 entrées de section des six livres, transcrits du livret fourni ; les cases multiples sont indépendantes. Ajout de codes personnalisés.
 - Bourse en chardes, investissements, dépôts et retraits avec frais configurables. Les nouveaux placements débitent la bourse ; l’édition d’un montant ne simule pas une transaction. Les frais de retrait sont arrondis au shard supérieur.
 - Navires : type libre, équipage mauvais / moyen / bon / hors pair, capacité, cargaison et port.
 - Cultes, 13 sanctuaires, bénédictions, maladies, malédictions, sortilèges et résurrections.
@@ -123,3 +123,5 @@ La carte du monde et les cartes des tomes 1 à 4 proposent un bouton à bascule 
 Les cartes françaises en couleur d’Uttaku (tome 5, 853 × 1280 pixels) et d’Ankon-Konu (tome 7, 1280 × 905 pixels) sont incluses. La carte du tome 6 reste Akatsuraï en anglais : l’image présentée comme tome 6 reprenait exactement la carte du tome 3 déjà intégrée. Les variantes noir et blanc existantes sont conservées pour le monde et les tomes 1 à 4. Le tome 7 est disponible dans la bibliothèque cartographique ; cela ne définit pas de nouvelles règles de création de personnage.
 
 La visionneuse occupe toute la hauteur disponible. Son en-tête et son bouton de fermeture restent visibles pendant les déplacements de la carte. Le bouton à pictogramme bascule entre couleur et noir et blanc ; l’aide tactile est en petits caractères italiques. La sélection de texte est désactivée hors des champs de saisie.
+
+Le bandeau du carnet d’exploration affiche le livre et le paragraphe du marque-page, avec une phrase d’ambiance propre aux tomes 1 à 7. Les codes acquis apparaissent avant les autres, chaque groupe étant trié alphabétiquement en français, y compris pendant une recherche. Les 27 codes du tome 6 étaient déjà présents ; les 75 codes du tome 7 ont été ajoutés depuis les images fournies (voir `docs/codes-tomes6-7.md`).

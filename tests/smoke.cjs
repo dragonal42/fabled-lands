@@ -90,9 +90,17 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
  await check('Quêtes, notes et affichage des textes sans HTML exécuté',async()=>{
   await navigate(page,'journal');await add(page,'quests',{title:'Retrouver le capitaine',notes:'<img src=x onerror=alert(1)>',book:1,section:42});await page.locator('[data-field="notes"]').fill('Rendez-vous au port.');assert.equal(await page.locator('.quest-row img').count(),0);await settled(page);
  });
- await check('194 codes du PDF, recherche, code personnalisé et cases répétées',async()=>{
-  await navigate(page,'codes');assert.equal(await page.locator('[data-code]').count(),194);await page.locator('#code-search').fill('Balustre');await page.locator('[data-code="Balustre"]').check();
+ await check('269 codes des livres, recherche, code personnalisé et cases répétées',async()=>{
+  await navigate(page,'codes');assert.equal(await page.locator('[data-code]').count(),269);await page.locator('#code-search').fill('Balustre');await page.locator('[data-code="Balustre"]').check();
   await page.locator('[name="code"]').fill('Zénith');await page.locator('#custom-code button').click();await navigate(page,'sections');await page.locator('[data-section="1:10:1"]').check();await settled(page);const s=(await current(page)).state;assert.equal(s.codes.Balustre,true);assert.equal(s.codes.Zénith,true);assert.equal(s.sections['1:10:1'],true);assert.ok(!s.sections['1:10:0']);
+ });
+ await check('Codes F et G vérifiés, acquis en premier, recherche et décochage sans perte',async()=>{
+  await navigate(page,'codes');const catalog=await page.evaluate(()=>GAME_DATA.codes);assert.equal(new Set(catalog).size,269);assert.equal(catalog.filter(n=>n.startsWith('F')).length,27);assert.equal(catalog.filter(n=>n.startsWith('G')).length,75);for(const name of ['Face','Fuligin','Gageure','Gaieté','Génuflexion','Gargouillis','Gré','Guise'])assert.ok(catalog.includes(name));
+  const ordered=async()=>{const rows=await page.locator('[data-code]').evaluateAll(nodes=>nodes.map(n=>({name:n.dataset.code,checked:n.checked})));let unchecked=false;for(const row of rows){if(!row.checked)unchecked=true;else assert.equal(unchecked,false,'Code acquis placé après un code non acquis');}const acquired=rows.filter(r=>r.checked).map(r=>r.name);assert.deepEqual(acquired,[...acquired].sort((a,b)=>a.localeCompare(b,'fr')));};
+  await ordered();await page.locator('[data-code="Gré"]').check();await page.locator('[data-code="Géode"]').check();await ordered();assert.equal(await page.locator('[data-code="Géode"]').evaluate(el=>document.activeElement===el),true);
+  await page.locator('[data-code="Balustre"]').uncheck();await ordered();assert.equal(await page.locator('[data-code]').first().getAttribute('data-code'),'Géode');await page.locator('#code-search').fill('g');await ordered();assert.equal(await page.locator('[data-code="Zénith"]').count(),0);assert.equal(await page.locator('[data-code="Gré"]').isChecked(),true);
+  await page.locator('#code-search').fill('');await settled(page);await page.reload();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();await navigate(page,'home');await navigate(page,'codes');await ordered();assert.equal(await page.locator('[data-code="Gré"]').isChecked(),true);assert.equal(await page.locator('[data-code="Zénith"]').isChecked(),true);
+  await page.locator('[data-code="Balustre"]').check();await page.locator('[data-code="Gré"]').uncheck();await page.locator('[data-code="Géode"]').uncheck();await settled(page);
  });
  await check('Navire, équipage et manifeste de cargaison',async()=>{
   await navigate(page,'ships');await add(page,'ships',{name:'L’Albatros',type:'Brigantin',crew:'bon',capacity:20,load:10,cargo:'Épices : 10 unités',port:'Sokara'});await settled(page);assert.equal((await current(page)).state.ships[0].load,10);
@@ -216,6 +224,14 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
  });
  await check('Changer de tome conserve le personnage, les codes, les cases et les possessions',async()=>{
   await navigate(page,'home');const before=(await current(page)).state;await page.locator('[data-action="position"]').first().click();await fillDialog(page,{book:2,section:71});await settled(page);const after=(await current(page)).state;assert.deepEqual(after,{...before,position:{book:2,section:71}});
+ });
+ await check('Carnet d’exploration : position réelle et ambiance de chaque tome au lancement',async()=>{
+  await navigate(page,'home');const before=(await current(page)).state;const moods=[];
+  for(const [book,region]of [[1,'Sokara'],[2,'Golnir'],[3,'océan Violet'],[4,'Grandes Steppes'],[5,'Uttaku'],[6,'Akatsuraï'],[7,'Ankon-Konu']]){
+   await page.locator('.hero-banner [data-action="position"]').click();await fillDialog(page,{book,section:book*10+4});await settled(page);assert.equal(await page.locator('.reading-position').textContent(),`Livre ${book} · Paragraphe ${book*10+4}`);const mood=await page.locator('.reading-mood').textContent();assert.ok(mood.includes(region));moods.push(mood);assert.match(await page.locator('.hero-summary .subtle-tag').textContent(),new RegExp(`LIVRE ${book} · SECTION ${book*10+4}`));
+  }
+  assert.equal(new Set(moods).size,7);await page.reload();await page.getByRole('heading',{name:'Bon retour, Camille.'}).waitFor();assert.equal(await page.locator('.reading-position').textContent(),'Livre 7 · Paragraphe 74');assert.match(await page.locator('.reading-mood').textContent(),/Ankon-Konu/);await page.locator('#toast').evaluate(el=>el.classList.remove('show'));await page.screenshot({path:path.join(__dirname,'artifacts/carnet-tome7-iphone.png'),fullPage:true});
+  await page.locator('.hero-banner [data-action="position"]').click();await fillDialog(page,before.position);await settled(page);assert.deepEqual((await current(page)).state,before);
  });
  await check('Une fiche JaFL déjà verrouillée conserve sa création et son équipement',async()=>{
   const p=await current(page);const previous=structuredClone(p.state);previous.hero.name='Voyageur de la version précédente';previous.hero.profession='Explorateur';const values=[2,5,2,3,6,4];Object.keys(previous.skills).forEach((key,i)=>previous.skills[key].initial=values[i]);
