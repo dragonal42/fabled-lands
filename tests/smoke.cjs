@@ -149,11 +149,11 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
   await navigate(page,'hero');assert.equal(await page.locator('[data-field="hero.profession"]').getAttribute('readonly'),'');const initial=page.locator('[data-field="skills.Combat.initial"]');assert.equal(await initial.locator('..').locator('[data-number-step="1"]').isDisabled(),true);
   const stamina=page.locator('[data-field="hero.stamina"]');await stamina.fill('0');await stamina.locator('..').locator('[data-number-step="-1"]').click({force:true});assert.equal(await stamina.inputValue(),'0');await settled(page);await fs.mkdir(path.join(__dirname,'artifacts'),{recursive:true});await page.locator('#toast').evaluate(el=>el.classList.remove('show'));await page.screenshot({path:path.join(__dirname,'artifacts/saisies-iphone.png'),fullPage:true});
  });
- await check('Bibliothèque : sept cartes, cartes françaises locales et import personnel conservé',async()=>{
-  await navigate(page,'maps');assert.equal(await page.locator('[data-catalog-map]').count(),7);
-  const expected=[['world','monde-fr.jpg',1280,795],['book-1','sokara-fr.jpg?v=20261024-hd',1000,1197],['book-2','golnir-fr.jpg?v=20261024-hd',1060,1280],['book-3','ocean-violet-fr.jpg',977,1280],['book-4','grandes-steppes-fr.jpg',946,1280]];
+ await check('Bibliothèque : huit cartes, cartes françaises locales et import personnel conservé',async()=>{
+  await navigate(page,'maps');assert.equal(await page.locator('[data-catalog-map]').count(),8);
+  const expected=[['world','monde-fr.jpg',1280,795],['book-1','sokara-fr.jpg?v=20261024-hd',1000,1197],['book-2','golnir-fr.jpg?v=20261024-hd',1060,1280],['book-3','ocean-violet-fr.jpg',977,1280],['book-4','grandes-steppes-fr.jpg',946,1280],['book-5','uttaku-fr-couleur.jpg',853,1280],['book-7','ankon-konu-fr-couleur.jpg',1280,905]];
   for(const [id,file,width,height]of expected){if(['world','book-1','book-2','book-3','book-4'].includes(id))await page.locator(`.french-library [data-map-edition="${id}"]`).selectOption('bw');await page.locator(`[data-catalog-map="${id}"]`).click();const image=page.locator('.map-viewer img');assert.equal(await image.getAttribute('src'),'assets/maps/'+file);await image.evaluate(img=>img.decode());assert.equal(await image.evaluate(img=>img.naturalWidth),width);assert.equal(await image.evaluate(img=>img.naturalHeight),height);await page.locator('[data-close]').click();}
-  assert.equal(await page.locator('.french-library [data-catalog-map]').count(),5);assert.equal(await page.locator('.map-library:not(.french-library) [data-catalog-map]').count(),2);assert.equal(await page.locator('[data-map]').count(),1);
+  assert.equal(await page.locator('.french-library [data-catalog-map]').count(),7);assert.equal(await page.locator('.map-library:not(.french-library) [data-catalog-map]').count(),1);assert.equal(await page.locator('[data-map]').count(),1);
  });
  await check('Cartes couleur et noir et blanc : choix par carte, persistance et accès hors ligne',async()=>{
   const before=await current(page);
@@ -166,6 +166,12 @@ async function current(page){return page.evaluate(async()=>{const s=JSON.parse(l
   await context.setOffline(true);
   for(const id of ['world','book-1','book-2','book-3','book-4']){await page.locator(`.french-library [data-map-edition="${id}"]`).selectOption('color');await page.locator(`[data-catalog-map="${id}"]`).click();await page.locator('.map-viewer img').evaluate(img=>img.decode());await page.locator(`#modal [data-map-edition="${id}"]`).selectOption('bw');await page.locator('.map-viewer img').evaluate(img=>img.decode());await page.locator('[data-close]').click();await page.waitForFunction(()=>!document.documentElement.classList.contains('map-open'));}
   await context.setOffline(false);assert.deepEqual((await current(page)).state,before.state);assert.equal(await page.locator('[data-map]').count(),1);
+ });
+ await check('Uttaku et Ankon-Konu : cartes locales hors ligne, Akatsuraï conservée au tome 6',async()=>{
+  const sixth=await page.evaluate(()=>mapCatalog.find(row=>row.id==='book-6'));assert.equal(sixth.title,'Akatsuraï');assert.equal(sixth.language,'en');assert.match(sixth.image,/book6\/Akatsurai.JPG$/);
+  await context.setOffline(true);
+  for(const [id,width,height]of [['book-5',853,1280],['book-7',1280,905]]){await page.locator(`[data-catalog-map="${id}"]`).click();const image=page.locator('.map-viewer img');await image.evaluate(img=>img.decode());assert.deepEqual(await image.evaluate(img=>[img.naturalWidth,img.naturalHeight]),[width,height]);await page.locator('[data-close]').click();await page.waitForFunction(()=>!document.documentElement.classList.contains('map-open'));}
+  await context.setOffline(false);
  });
  await check('Cartes : pincement et déplacement isolés, boutons et retour à la vue entière',async()=>{
   await navigate(page,'maps');await page.locator('[data-catalog-map="book-1"]').click();const viewer=page.locator('.map-viewer');await viewer.locator('img').evaluate(img=>img.decode());

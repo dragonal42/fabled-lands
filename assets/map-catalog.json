@@ -103,9 +103,9 @@
     "id": "book-5",
     "book": 5,
     "title": "Uttaku",
-    "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book5/Uttaku.JPG",
-    "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book5/Uttaku.JPG",
-    "language": "en"
+    "image": "assets/maps/uttaku-fr-couleur.jpg",
+    "language": "fr",
+    "credit": "Carte française du tome 5 fournie pour ce carnet"
   },
   {
     "id": "book-6",
@@ -114,5 +114,13 @@
     "image": "https://raw.githubusercontent.com/volpe-jb/JavaFabledLands/cd56331da0433c8f1d60e39608614e2fc199d662/book6/Akatsurai.JPG",
     "source": "https://github.com/volpe-jb/JavaFabledLands/blob/cd56331da0433c8f1d60e39608614e2fc199d662/book6/Akatsurai.JPG",
     "language": "en"
+  },
+  {
+    "id": "book-7",
+    "book": 7,
+    "title": "Ankon-Konu — La Terre des Plumes",
+    "image": "assets/maps/ankon-konu-fr-couleur.jpg",
+    "language": "fr",
+    "credit": "Carte française du tome 7 fournie pour ce carnet"
   }
 ]

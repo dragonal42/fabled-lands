@@ -45,7 +45,7 @@ Le détail de la comparaison, les références aux pages et les limites du suivi
 
 Les armes et autres possessions des tomes 2 à 6 dépendent de leurs données JaFL ; le tome 6 commence uniquement avec une boucle d’oreille en platine. Pour les mécaniques du carnet : Défense sans bonus de Combat, compétences de base entre 1 et 12, tests strictement supérieurs à la difficulté, et variation identique de l’endurance actuelle et maximale lors d’une modification du maximum. Les bonus d’objets ne sont pas cumulables : le joueur reporte le meilleur bonus dans sa fiche.
 
-La [page de cartes françaises fournie](https://www.fabledlands.fr/2020/04/carte-du-monde.html?m=1) est mise en avant dans le logiciel pour le monde et les tomes 1 à 4. Les images françaises du monde et des tomes 1 à 4, fournies directement par l’utilisateur, sont incluses dans l’application et remplacent leurs aperçus anglais : leur consultation ne dépend plus de l’accès à cette page externe. Les deux cartes régionales JaFL des tomes 5 et 6 restent indiquées « en anglais », et l’import personnel est conservé.
+La [page de cartes françaises fournie](https://www.fabledlands.fr/2020/04/carte-du-monde.html?m=1) est mise en avant dans le logiciel pour le monde et les tomes 1 à 4. Les images françaises du monde et des tomes 1 à 4, fournies directement par l’utilisateur, sont incluses dans l’application et remplacent leurs aperçus anglais : leur consultation ne dépend plus de l’accès à cette page externe. Les cartes françaises d’Uttaku (tome 5) et d’Ankon-Konu (tome 7) sont également incluses. Akatsuraï (tome 6) conserve sa carte JaFL indiquée « en anglais », et l’import personnel est conservé.
 
 ## Déployer sur O2Switch
 
@@ -119,3 +119,5 @@ Les textes courants et les champs sont affichés en 16 à 17 px, avec des libell
 ### Présentation des cartes
 
 La carte du monde et les cartes des tomes 1 à 4 proposent un choix **Couleur / Noir et blanc**, dans la bibliothèque et dans la visionneuse. Les deux versions originales fournies sont conservées sans recompression. Le choix est mémorisé par profil et par carte sur cet appareil, sans modifier la sauvegarde du personnage. Les deux présentations de ces cartes sont disponibles hors connexion après la préparation du cache de l’application.
+
+Les cartes françaises en couleur d’Uttaku (tome 5, 853 × 1280 pixels) et d’Ankon-Konu (tome 7, 1280 × 905 pixels) sont incluses. La carte du tome 6 reste Akatsuraï en anglais : l’image présentée comme tome 6 reprenait exactement la carte du tome 3 déjà intégrée. Les variantes noir et blanc existantes sont conservées pour le monde et les tomes 1 à 4. Le tome 7 est disponible dans la bibliothèque cartographique ; cela ne définit pas de nouvelles règles de création de personnage.

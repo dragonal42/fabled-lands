@@ -26,7 +26,7 @@ header('X-Content-Type-Options: nosniff');
   <script src="assets/vendor/sweetalert2.min.js" defer></script>
   <script src="assets/game-data.js" defer></script>
   <script src="assets/adventure.js?v=20261025-couleurs" defer></script>
-  <script src="assets/rules.js?v=20261025-couleurs" defer></script>
+  <script src="assets/rules.js?v=20261025-regions" defer></script>
   <script src="assets/map-viewer.js?v=20261025-couleurs" defer></script>
   <script src="assets/app.js?v=20261025-couleurs" defer></script>
   <script src="assets/install.js" defer></script>
