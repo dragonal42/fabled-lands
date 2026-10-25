@@ -104,3 +104,9 @@ input,textarea,[contenteditable="true"]{-webkit-user-select:text;user-select:tex
 
 .hero-banner .reading-position{display:table;padding:5px 10px;margin:0 0 10px;border:1px solid #d4bd7e80;border-radius:5px;background:#ffffff12;color:#fff1c5;font-size:16px;font-weight:700;line-height:1.5}
 .hero-banner .reading-mood{max-width:540px;margin-bottom:18px;line-height:1.65}
+
+.reading-trail{list-style:none;margin:12px 0 0;padding:0;max-height:55vh;overflow-y:auto;overscroll-behavior:contain}
+.reading-stop{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.reading-stop:last-child{border:0}
+.trail-number{display:grid;place-items:center;flex-shrink:0;min-width:32px;height:32px;padding:2px 6px;border-radius:50%;background:var(--green-soft);color:var(--green);font-weight:700}
+.reading-stop>div{flex:1;min-width:160px}.reading-stop strong{font-size:16px}.reading-stop time,.reading-stop small{display:block;font-size:16px;color:var(--muted)}

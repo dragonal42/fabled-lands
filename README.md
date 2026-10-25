@@ -125,3 +125,7 @@ Les cartes françaises en couleur d’Uttaku (tome 5, 853 × 1280 pixels) et d�
 La visionneuse occupe toute la hauteur disponible. Son en-tête et son bouton de fermeture restent visibles pendant les déplacements de la carte. Le bouton à pictogramme bascule entre couleur et noir et blanc ; l’aide tactile est en petits caractères italiques. La sélection de texte est désactivée hors des champs de saisie.
 
 Le bandeau du carnet d’exploration affiche le livre et le paragraphe du marque-page, avec une phrase d’ambiance propre aux tomes 1 à 7. Les codes acquis apparaissent avant les autres, chaque groupe étant trié alphabétiquement en français, y compris pendant une recherche. Les 27 codes du tome 6 étaient déjà présents ; les 75 codes du tome 7 ont été ajoutés depuis les images fournies (voir `docs/codes-tomes6-7.md`).
+
+### Parcours de lecture
+
+Le journal conserve la succession des livres et paragraphes confirmés avec « Reprendre ma lecture » ou le marque-page. Chaque déplacement ajoute une étape horodatée ; confirmer deux fois le même passage ne crée pas de doublon consécutif. Revenir plus tard sur un passage déjà visité reste une nouvelle étape. Ce parcours est inclus dans les sauvegardes serveur, locales et JSON. Les anciennes sauvegardes restent compatibles : les déplacements passés ne peuvent pas être reconstitués ; la position connue sert de point de départ du suivi, sans date inventée. Une nouvelle aventure commence un nouveau parcours.

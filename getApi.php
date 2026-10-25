@@ -65,6 +65,15 @@ function validateState(mixed $state): void {
         if ($list === 'ships' && (!in_array($row['crew'], ['mauvais','moyen','bon','hors pair'], true) || $row['load'] > $row['capacity'])) reply(['error' => 'Manifeste de navire invalide.'], 422);
         if ($list === 'maps' && !preg_match('~^data:image/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$~D', $row['image'])) reply(['error' => 'Image de carte invalide.'], 422);
     }
+    // Older saves may omit the reading trail; keep them valid without inventing visits.
+    if (array_key_exists('readingHistory', $state)) {
+        $trail = $state['readingHistory'];
+        if (!is_array($trail) || !array_is_list($trail) || count($trail) > 10000) reply(['error'=>'Historique de lecture invalide.'], 422);
+        foreach ($trail as $stop) {
+            if (!is_array($stop) || !is_string($stop['id'] ?? null) || !preg_match('/^[a-zA-Z0-9-]{1,100}$/', $stop['id']) || !is_int($stop['book'] ?? null) || $stop['book'] < 1 || !is_int($stop['section'] ?? null) || $stop['section'] < 1 || !is_string($stop['at'] ?? null)) reply(['error'=>'Passage de lecture invalide.'], 422);
+            if ($stop['at'] !== '' && (!preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/D', $stop['at']) || strtotime($stop['at']) === false)) reply(['error'=>'Date du passage invalide.'], 422);
+        }
+    }
     if (count($state['maps']) > 8 || count($state['dice']) > 50) reply(['error' => 'Trop de cartes ou de jets de dés.'], 422);
     foreach (['codes', 'sections'] as $key) foreach ($state[$key] as $value) if (!is_bool($value)) reply(['error' => 'Case à cocher invalide.'], 422);
 }

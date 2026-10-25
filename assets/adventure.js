@@ -66,7 +66,7 @@ async function finalizeCharacter(){
    try{
      await flushSaves();const next=fresh();next.adventure={...state.adventure,status:'locked',creation:candidate};
      next.hero={...next.hero,name:candidate.name,profession:candidate.profession,rank:candidate.rank,stamina:candidate.stamina,maxStamina:candidate.stamina,armour:candidate.armour};
-     next.skills=Object.fromEntries(SKILLS.map((n,i)=>[n,{initial:candidate.skills[i],current:candidate.skills[i],bonus:0,reason:''}]));next.position={book:candidate.book,section:1};next.gold=candidate.gold;next.inventory=candidate.inventory.map(r=>({...r,id:uid()}));
+     next.skills=Object.fromEntries(SKILLS.map((n,i)=>[n,{initial:candidate.skills[i],current:candidate.skills[i],bonus:0,reason:''}]));next.position={book:candidate.book,section:1};next.readingHistory=[{id:uid(),...next.position,at:new Date().toISOString()}];next.gold=candidate.gold;next.inventory=candidate.inventory.map(r=>({...r,id:uid()}));
      const result=await api({action:'save',id:profile.id,version,state:next});state=next;version=result.version;dirty=false;cache();draftCandidate=null;return true;
    }catch(e){Swal.showValidationMessage(e.message);return false;}
  }});
